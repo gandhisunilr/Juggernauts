@@ -1,0 +1,213 @@
+
+Allocating common symbols
+Common symbol       size              file
+
+HARDFAULT_PSP       0x4               vector.o
+i                   0x4               vector.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+rom              0x08000000         0x00040000         xr
+ram              0x20000000         0x00010000         xrw
+xn               0xc0000000         0x00010000         xrw
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+                0x08000000                . = 0x8000000
+
+.text           0x08000000      0x258
+ *(.vectors)
+ .vectors       0x08000000      0x130 vector.o
+                0x08000000                vector_table
+ *(.text*)
+ .text          0x08000130       0x18 main.o
+                0x08000130                main
+                0x0800013c                usage_fault_handler
+ .text          0x08000148      0x100 vector.o
+                0x08000148                reset_handler
+                0x08000204                blocking_handler
+                0x08000204                bus_fault_handler
+                0x08000224                usart3_isr
+                0x08000224                rtc_isr
+                0x08000224                tim7_isr
+                0x08000224                adc1_2_isr
+                0x08000224                tim1_trg_com_isr
+                0x08000224                usb_hp_can_tx_isr
+                0x08000224                tim6_isr
+                0x08000224                usb_wakeup_isr
+                0x08000224                tim5_isr
+                0x08000224                spi1_isr
+                0x08000224                dma1_channel6_isr
+                0x08000224                exti2_isr
+                0x08000224                null_handler
+                0x08000224                can_rx1_isr
+                0x08000224                dma1_channel5_isr
+                0x08000224                usart1_isr
+                0x08000224                tim8_trg_com_isr
+                0x08000224                tim1_brk_isr
+                0x08000224                tim1_cc_isr
+                0x08000224                sdio_isr
+                0x08000224                dma1_channel4_isr
+                0x08000224                tim8_brk_isr
+                0x08000224                dma2_channel4_5_isr
+                0x08000224                usart5_isr
+                0x08000224                pvd_isr
+                0x08000224                sv_call_handler
+                0x08000224                rcc_isr
+                0x08000224                flash_isr
+                0x08000224                rtc_alarm_isr
+                0x08000224                exti15_10_isr
+                0x08000224                exti1_isr
+                0x08000224                i2c1_ev_isr
+                0x08000224                dma2_channel1_isr
+                0x08000224                pend_sv_handler
+                0x08000224                spi2_isr
+                0x08000224                tim8_up_isr
+                0x08000224                dma2_channel2_isr
+                0x08000224                adc3_isr
+                0x08000224                exti3_isr
+                0x08000224                debug_monitor_handler
+                0x08000224                tim3_isr
+                0x08000224                usart2_isr
+                0x08000224                usb_lp_can_rx0_isr
+                0x08000224                i2c2_er_isr
+                0x08000224                i2c2_ev_isr
+                0x08000224                sys_tick_handler
+                0x08000224                fsmc_isr
+                0x08000224                dma1_channel1_isr
+                0x08000224                exti4_isr
+                0x08000224                exti9_5_isr
+                0x08000224                dma2_channel3_isr
+                0x08000224                dma1_channel7_isr
+                0x08000224                tim1_up_isr
+                0x08000224                tim4_isr
+                0x08000224                dma1_channel2_isr
+                0x08000224                i2c1_er_isr
+                0x08000224                can_sce_isr
+                0x08000224                nmi_handler
+                0x08000224                tim8_cc_isr
+                0x08000224                tamper_isr
+                0x08000224                wwdg_isr
+                0x08000224                dma1_channel3_isr
+                0x08000224                usart4_isr
+                0x08000224                spi3_isr
+                0x08000224                tim2_isr
+                0x08000224                exti0_isr
+                0x08000230                hard_fault_handler
+                0x0800023c                mem_manage_handler
+ .text          0x08000248        0x0 sum.o
+ .text.stub     0x08000248       0x10 linker stubs
+ *(.rodata*)
+                0x08000258                _etext = .
+
+.glue_7         0x08000258        0x0
+ .glue_7        0x00000000        0x0 linker stubs
+
+.glue_7t        0x08000258        0x0
+ .glue_7t       0x00000000        0x0 linker stubs
+
+.vfp11_veneer   0x08000258        0x0
+ .vfp11_veneer  0x00000000        0x0 linker stubs
+
+.v4_bx          0x08000258        0x0
+ .v4_bx         0x00000000        0x0 linker stubs
+
+.nxtext         0xc0000000       0x10 load address 0x08000258
+ *(.sum)
+ .sum           0xc0000000       0x10 sum.o
+                0xc0000000                sum
+                0x20000000                . = 0x20000000
+
+.data           0x20000000        0x0 load address 0x08000258
+                0x20000000                _data = .
+ *(.data*)
+ .data          0x20000000        0x0 main.o
+ .data          0x20000000        0x0 vector.o
+ .data          0x20000000        0x0 sum.o
+                0x20000000                _edata = .
+
+.bss            0x20000000        0x8 load address 0x08000258
+ *(.bss*)
+ .bss           0x20000000        0x0 main.o
+ .bss           0x20000000        0x0 vector.o
+ .bss           0x20000000        0x0 sum.o
+ *(COMMON)
+ COMMON         0x20000000        0x8 vector.o
+                0x20000000                HARDFAULT_PSP
+                0x20000004                i
+                0x20000008                _ebss = .
+                0x20000008                end = .
+                0x20000800                PROVIDE (_stack, 0x20000800)
+LOAD main.o
+LOAD vector.o
+LOAD sum.o
+OUTPUT(main.elf elf32-littlearm)
+
+.debug_abbrev   0x00000000      0x1a7
+ .debug_abbrev  0x00000000       0x7d main.o
+ .debug_abbrev  0x0000007d       0xf4 vector.o
+ .debug_abbrev  0x00000171       0x36 sum.o
+
+.debug_info     0x00000000      0x2f5
+ .debug_info    0x00000000       0xce main.o
+ .debug_info    0x000000ce      0x1de vector.o
+ .debug_info    0x000002ac       0x49 sum.o
+
+.debug_line     0x00000000      0x147
+ .debug_line    0x00000000       0x3a main.o
+ .debug_line    0x0000003a       0xd8 vector.o
+ .debug_line    0x00000112       0x35 sum.o
+
+.debug_loc      0x00000000      0x170
+ .debug_loc     0x00000000       0x62 main.o
+ .debug_loc     0x00000062       0xe3 vector.o
+ .debug_loc     0x00000145       0x2b sum.o
+
+.debug_pubnames
+                0x00000000      0x100
+ .debug_pubnames
+                0x00000000       0x33 main.o
+ .debug_pubnames
+                0x00000033       0xb3 vector.o
+ .debug_pubnames
+                0x000000e6       0x1a sum.o
+
+.debug_aranges  0x00000000       0x60
+ .debug_aranges
+                0x00000000       0x20 main.o
+ .debug_aranges
+                0x00000020       0x20 vector.o
+ .debug_aranges
+                0x00000040       0x20 sum.o
+
+.debug_str      0x00000000      0x170
+ .debug_str     0x00000000       0xb6 main.o
+                                 0xea (size before relaxing)
+ .debug_str     0x000000b6       0xb4 vector.o
+                                0x175 (size before relaxing)
+ .debug_str     0x0000016a        0x6 sum.o
+                                 0x3e (size before relaxing)
+
+.comment        0x00000000       0x81
+ .comment       0x00000000       0x2b main.o
+ .comment       0x0000002b       0x2b vector.o
+ .comment       0x00000056       0x2b sum.o
+
+.ARM.attributes
+                0x00000000       0x31
+ .ARM.attributes
+                0x00000000       0x31 main.o
+ .ARM.attributes
+                0x00000031       0x31 vector.o
+ .ARM.attributes
+                0x00000062       0x31 sum.o
+
+.debug_frame    0x00000000      0x100
+ .debug_frame   0x00000000       0x48 main.o
+ .debug_frame   0x00000048       0x90 vector.o
+ .debug_frame   0x000000d8       0x28 sum.o
+
+.debug_ranges   0x00000000       0x18
+ .debug_ranges  0x00000000       0x18 sum.o

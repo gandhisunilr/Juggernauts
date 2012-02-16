@@ -1,54 +1,33 @@
 #include<stdint.h>
 
-int a;
-//__attribute__ ((section (".flashfun")))
-__attribute__ ((section (".sumfun")))
-void sum() 
-{
 
-	a=a+1;
-	
-	return;
-}
-
-
-//__attribute__ ((section (".ramfun")))
-__attribute__ ((section (".subfun")))
-void sub()
-{
-	a=a-1;
-	return;
-}
-
-extern unsigned ramfunstart, main_end, main_start, myfun_start, myfun_end;
-__attribute__ ((section (".ramfun")))
-void ramfun()
-{
-		volatile unsigned *src,*dest;
-
-	for(dest= (&ramfunstart - &myfun_start + &myfun_end), src= &main_start; src<= &main_end; src++, dest++){
-			*dest=*src;
-		}
-
-	return;
-}
-
-
-__attribute__((section("mainfun")))
-//__attribute__((section(".XNregion")))
 int main(void)
 {
-	
-	a=10;
-	
-	a=a+1;
+	extern unsigned _ebss;
+	int *codeaddr,*src,*dest;
+/*	
+	int (*fp)(void);
+	codeaddr=_ebss;
+		for(dest=codeaddr,
+			src=&_sumfunstart; src<=&_sumfunend;
+				src++,dest++)
+		{	
+			*dest=*src;
+		}	
+        
+//	a=a/i;
+        fp=codeaddr;
+//	goto *codeaddr;
+	fp();	
+//	while(1);
+*/
+	sum();
+	while(1);
 }
+
 
 
 void usage_fault_handler(){
 
-	
-
-	
-	return;
+return;
 }

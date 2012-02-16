@@ -5,6 +5,7 @@ MEMORY
 {
 	rom (rx) : ORIGIN = 0x08000000, LENGTH = 256K
 	ram (rwx) : ORIGIN = 0x20000000, LENGTH = 64K
+	xn (rwx) : ORIGIN = 0xC0000000, LENGTH = 64K
 }
 
 EXTERN (vector_table)
@@ -20,6 +21,10 @@ SECTIONS
 		*(.rodata*)	/* Read-only data */
 		_etext = .;
 	} >rom
+
+	.nxtext : AT(_etext) {
+		*(.sum);
+	} > xn
 
 	. = ORIGIN(ram);
 
