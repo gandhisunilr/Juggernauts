@@ -1,0 +1,62 @@
+							Sunil Tutorial GIT
+
+git config --global user.name "Sunil"
+git config --global user.email "sunil.gandhi007@gmail.com"
+
+.gitconfig
+ [alias]
+ co = checkout
+ ci = commit
+ st = status
+ br = branch
+ hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+ type = cat-file -t
+ dump = cat-file -p
+
+.bashrc
+ alias gs='git status '
+ alias ga='git add '
+ alias gb='git branch '
+ alias gc='git commit'
+ alias gd='git diff'
+ alias go='git checkout '
+ alias gk='gitk --all&'
+ alias gx='gitx --all'
+
+ alias got='git '
+ alias get='git '
+
+git add hello.rb			git add .
+git commit -m "First Commit"		git commit --amend -m "change the comment"
+git status				git hist
+git tag v1				git tag
+git checkout <hash>			go <hash>	git checkout v1^
+git reset HEAD hello.rb			//resets staging area to whatever is in head
+git revert <hash>			//undo commited change (adds new commit of that)
+
+Remove commit as if it never happened:
+git tag oops
+git reset --hard v1
+git hist --all				// see even commit with ooops tag
+--------------------------------------------------------------------------------------------------------
+git branch <branchname>
+go <branchname>
+
+git clone reponame localreponame
+git branch -a				//show all branches in clonned repository
+git fetch + git merge origin/sunil = git pull	// fetch new commits (not merge them)
+git branch --track greet origin/greet
+git remote add shared ../hello.git	//adding a remote repository
+git push shared master
+
+
+git rm -r .				// Removing files and folders from git
+
+Steps for setting up environment for our project:
+1. install git as told in http://help.github.com/linux-set-up-git/
+2. clone repo git clone git@github.com:sunilgandhi007/Juggernauts
+3. git push git@github.com:sunilgandhi007/Juggernauts   		Pushing changes to repository
+4. git pull								getting changes from repo
+
+
+
