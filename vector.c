@@ -201,7 +201,20 @@ void hard_fault_handler(void)
 
 void mem_manage_handler(void)
 {
-	/* Do nothing. */
+	extern unsigned _etext,end,_sumfunend,_sumfunstart;
+	unsigned *src,*dest;
+	int code_size;
+	code_size= &_sumfunend - &_sumfunstart;
+
+		for(dest=&end,
+			src=&_etext; src<= &_etext + code_size;
+				src++,dest++)
+		{	
+			*dest=*src;
+		}	
+        
+	return;	
+
 }
 
 #pragma weak nmi_handler = null_handler

@@ -23,9 +23,11 @@ SECTIONS
 	} >rom
 
 	.nxtext : AT(_etext) {
+		_sumfunstart = .;
 		*(.sum);
+		_sumfunend = .;
 	} > xn
-
+	code_size = _sumfunend - _sumfunstart;
 	. = ORIGIN(ram);
 
 	.data : {

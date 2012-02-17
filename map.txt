@@ -17,7 +17,7 @@ Linker script and memory map
 
                 0x08000000                . = 0x8000000
 
-.text           0x08000000      0x258
+.text           0x08000000      0x2c0
  *(.vectors)
  .vectors       0x08000000      0x130 vector.o
                 0x08000000                vector_table
@@ -25,7 +25,7 @@ Linker script and memory map
  .text          0x08000130       0x18 main.o
                 0x08000130                main
                 0x0800013c                usage_fault_handler
- .text          0x08000148      0x100 vector.o
+ .text          0x08000148      0x164 vector.o
                 0x08000148                reset_handler
                 0x08000204                blocking_handler
                 0x08000204                bus_fault_handler
@@ -97,30 +97,34 @@ Linker script and memory map
                 0x08000224                exti0_isr
                 0x08000230                hard_fault_handler
                 0x0800023c                mem_manage_handler
- .text          0x08000248        0x0 sum.o
- .text.stub     0x08000248       0x10 linker stubs
+ .text          0x080002ac        0x0 sum.o
+ *fill*         0x080002ac        0x4 00
+ .text.stub     0x080002b0       0x10 linker stubs
  *(.rodata*)
-                0x08000258                _etext = .
+                0x080002c0                _etext = .
 
-.glue_7         0x08000258        0x0
+.glue_7         0x080002c0        0x0
  .glue_7        0x00000000        0x0 linker stubs
 
-.glue_7t        0x08000258        0x0
+.glue_7t        0x080002c0        0x0
  .glue_7t       0x00000000        0x0 linker stubs
 
-.vfp11_veneer   0x08000258        0x0
+.vfp11_veneer   0x080002c0        0x0
  .vfp11_veneer  0x00000000        0x0 linker stubs
 
-.v4_bx          0x08000258        0x0
+.v4_bx          0x080002c0        0x0
  .v4_bx         0x00000000        0x0 linker stubs
 
-.nxtext         0xc0000000       0x10 load address 0x08000258
+.nxtext         0xc0000000       0x10 load address 0x080002c0
+                0xc0000000                _sumfunstart = .
  *(.sum)
  .sum           0xc0000000       0x10 sum.o
                 0xc0000000                sum
+                0xc0000010                _sumfunend = .
+                0x00000010                code_size = (_sumfunend - _sumfunstart)
                 0x20000000                . = 0x20000000
 
-.data           0x20000000        0x0 load address 0x08000258
+.data           0x20000000        0x0 load address 0x080002c0
                 0x20000000                _data = .
  *(.data*)
  .data          0x20000000        0x0 main.o
@@ -128,7 +132,7 @@ Linker script and memory map
  .data          0x20000000        0x0 sum.o
                 0x20000000                _edata = .
 
-.bss            0x20000000        0x8 load address 0x08000258
+.bss            0x20000000        0x8 load address 0x080002c0
  *(.bss*)
  .bss           0x20000000        0x0 main.o
  .bss           0x20000000        0x0 vector.o
@@ -145,24 +149,24 @@ LOAD vector.o
 LOAD sum.o
 OUTPUT(main.elf elf32-littlearm)
 
-.debug_abbrev   0x00000000      0x1a7
- .debug_abbrev  0x00000000       0x7d main.o
- .debug_abbrev  0x0000007d       0xf4 vector.o
- .debug_abbrev  0x00000171       0x36 sum.o
+.debug_abbrev   0x00000000      0x18f
+ .debug_abbrev  0x00000000       0x54 main.o
+ .debug_abbrev  0x00000054      0x105 vector.o
+ .debug_abbrev  0x00000159       0x36 sum.o
 
-.debug_info     0x00000000      0x2f5
- .debug_info    0x00000000       0xce main.o
- .debug_info    0x000000ce      0x1de vector.o
- .debug_info    0x000002ac       0x49 sum.o
+.debug_info     0x00000000      0x31c
+ .debug_info    0x00000000       0x99 main.o
+ .debug_info    0x00000099      0x23a vector.o
+ .debug_info    0x000002d3       0x49 sum.o
 
-.debug_line     0x00000000      0x147
- .debug_line    0x00000000       0x3a main.o
- .debug_line    0x0000003a       0xd8 vector.o
- .debug_line    0x00000112       0x35 sum.o
+.debug_line     0x00000000      0x14f
+ .debug_line    0x00000000       0x38 main.o
+ .debug_line    0x00000038       0xe2 vector.o
+ .debug_line    0x0000011a       0x35 sum.o
 
 .debug_loc      0x00000000      0x170
- .debug_loc     0x00000000       0x62 main.o
- .debug_loc     0x00000062       0xe3 vector.o
+ .debug_loc     0x00000000       0x56 main.o
+ .debug_loc     0x00000056       0xef vector.o
  .debug_loc     0x00000145       0x2b sum.o
 
 .debug_pubnames
@@ -182,12 +186,12 @@ OUTPUT(main.elf elf32-littlearm)
  .debug_aranges
                 0x00000040       0x20 sum.o
 
-.debug_str      0x00000000      0x170
- .debug_str     0x00000000       0xb6 main.o
-                                 0xea (size before relaxing)
- .debug_str     0x000000b6       0xb4 vector.o
-                                0x175 (size before relaxing)
- .debug_str     0x0000016a        0x6 sum.o
+.debug_str      0x00000000      0x189
+ .debug_str     0x00000000       0xa8 main.o
+                                 0xdc (size before relaxing)
+ .debug_str     0x000000a8       0xdb vector.o
+                                0x197 (size before relaxing)
+ .debug_str     0x00000183        0x6 sum.o
                                  0x3e (size before relaxing)
 
 .comment        0x00000000       0x81
@@ -205,8 +209,8 @@ OUTPUT(main.elf elf32-littlearm)
                 0x00000062       0x31 sum.o
 
 .debug_frame    0x00000000      0x100
- .debug_frame   0x00000000       0x48 main.o
- .debug_frame   0x00000048       0x90 vector.o
+ .debug_frame   0x00000000       0x44 main.o
+ .debug_frame   0x00000044       0x94 vector.o
  .debug_frame   0x000000d8       0x28 sum.o
 
 .debug_ranges   0x00000000       0x18
