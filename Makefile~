@@ -1,0 +1,22 @@
+CC = gcc
+CFLAGS = -o
+OBJS = myprog.o myfunction.o
+SRCS = 'ls *.c'
+#OBJS ='ls *.c | sed s/c$/o/9'
+
+all:myprog
+
+
+myprog:$(OBJS)
+	$(CC) $(CFLAGS) $@ $(OBJS)
+
+%.o : $(SRCS)
+	$(CC) -c $(CFLAGS) $@ $(SRCS)
+
+test:all
+
+test: 
+	./myprog 
+
+#  Whenever we do make test it will skip everything and only execute from test 
+#  except variable declarations
