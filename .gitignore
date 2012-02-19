@@ -1,0 +1,9 @@
+#Compiled source #
+###################
+*~
+*.bin
+*.list
+*.elf
+*.map
+*.o
+
