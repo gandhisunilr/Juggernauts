@@ -212,7 +212,7 @@ void mem_manage_handler(void)
 		{	
 			*dest=*src;
 		}	
-        
+        asm("mov lr, %0":: "r"(dest) );
 	return;	
 
 }
