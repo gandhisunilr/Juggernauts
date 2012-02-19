@@ -31,7 +31,7 @@ $(LISTDETAIL) $(LIST) $(BINARY): $(ELF)
 	$(OBJCOPY) $(OBJCOPYFLAGS) binary $(ELF) $(BINARY)
 
 $(ELF) : $(OBJS)
-	$(LD) $(LDFLAGS) $(OBJS) -Map ./map.txt  
+	$(LD) $(LDFLAGS) $(OBJS) -Map ./map.map  
 
 $(OBJS) : $(SRCS)
 	$(CC) $(CCFLAGS) $(SRCS)
