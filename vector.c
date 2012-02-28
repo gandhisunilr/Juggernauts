@@ -163,7 +163,7 @@ void reset_handler(void)
 	i=1;
 	while(i);
 	CCR=(uint32_t *)0xE000ED14;
-	*CCR=16;
+	*CCR=528;
 	SHCSR=(uint32_t *)0xE000ED24;
 	*SHCSR=0x70000;
 
@@ -180,14 +180,11 @@ void reset_handler(void)
 }
 
 	void **HARDFAULT_PSP;
-	register void *stack_pointer asm("sp");
+	register void **stack_pointer asm("sp");
+	unsigned int spt;
 
 void blocking_handler(void)
 {
-	// Hijack the process stack pointer to make backtrace work
-    asm("mrs %0, psp" : "=r"(HARDFAULT_PSP));
-    stack_pointer = HARDFAULT_PSP;
-    while(1);
 }
 void null_handler(void)
 {
@@ -212,7 +209,17 @@ void mem_manage_handler(void)
 		{	
 			*dest=*src;
 		}	
-        asm("mov lr, %0":: "r"(dest) );
+
+      
+	asm(
+	"TST LR, #4;"
+	"ITE EQ;"
+	"MRSEQ R0, MSP;"
+	"MRSNE R0, PSP;"
+	);
+
+	asm("mov %0, r0" : "=r"(dest));
+	dest[12]=&end;
 	return;	
 
 }
