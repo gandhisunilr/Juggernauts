@@ -155,7 +155,7 @@ void (*const vector_table[]) (void) = {
 	dma2_channel3_isr,
 	dma2_channel4_5_isr,
 };
-	int i;
+int i;
 void reset_handler(void)
 {
 	volatile unsigned *src, *dest;
@@ -219,7 +219,7 @@ void mem_manage_handler(void)
 	);
 
 	asm("mov %0, r0" : "=r"(dest));
-	dest[12]=&end;
+	dest[12] = &end;
 	return;	
 
 }
