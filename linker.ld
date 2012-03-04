@@ -17,8 +17,7 @@ SECTIONS
 
 	.text : {
 		*(.vectors)
-		*(.handlerfunctions)	
-		*(.mainfunctions)	
+		*(.handlerfunctions)		
 		*(.rodata*)	/* Read-only data */
 		_etext = .;
 	} >rom

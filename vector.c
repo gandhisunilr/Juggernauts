@@ -199,7 +199,6 @@ void hard_fault_handler(void)
 {
 	/* Do nothing. */
 }
-
 __attribute__ ((section(".handlerfunctions")))
 void mem_manage_handler(void)
 {
@@ -224,7 +223,7 @@ void mem_manage_handler(void)
 	);
 
 	asm("mov %0, r0" : "=r"(dest));
-	dest[12]=&end;
+	dest[12] = &end;
 	return;	
 
 }
