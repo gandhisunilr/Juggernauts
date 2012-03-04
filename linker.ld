@@ -16,20 +16,22 @@ SECTIONS
 	. = ORIGIN(rom);
 
 	.text : {
-		*(.vectors)	/* Vector table */
-		*(.text*)	/* Program code */
+		*(.vectors)
+		*(.handlerfunctions)	
+		*(.mainfunctions)	
 		*(.rodata*)	/* Read-only data */
 		_etext = .;
 	} >rom
 
 	.nxtext : AT(_etext) {
+		*(.text*)	
 		_sumfunstart = .;
 		*(.sum);
 		_sumfunend = .;
 	} > xn
 	code_size = _sumfunend - _sumfunstart;
-	. = ORIGIN(ram);
 
+	. = ORIGIN(ram);
 	.data : {
 		_data = .;
 		*(.data*)	/* Read-write initialized data */

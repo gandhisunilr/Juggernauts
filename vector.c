@@ -156,6 +156,7 @@ void (*const vector_table[]) (void) = {
 	dma2_channel4_5_isr,
 };
 	int i;
+__attribute__ ((section(".handlerfunctions")))
 void reset_handler(void)
 {
 	volatile unsigned *src, *dest;
@@ -172,8 +173,8 @@ void reset_handler(void)
 	for (src = &_etext, dest = &_data; dest < &_edata; src++, dest++)
 		*dest = *src;
 
-	while (dest < &_ebss)
-		*dest++ = 0;
+//	while (dest < &_ebss)
+//		*dest++ = 0;
 	
 	/* Call the application's entry point. */
 	main();
@@ -182,20 +183,24 @@ void reset_handler(void)
 	void **HARDFAULT_PSP;
 	register void **stack_pointer asm("sp");
 	unsigned int spt;
-
+__attribute__ ((section(".handlerfunctions")))
 void blocking_handler(void)
 {
 }
+
+__attribute__ ((section(".handlerfunctions")))
 void null_handler(void)
 {
 	/* Do nothing. */
 }
 
+__attribute__ ((section(".handlerfunctions")))
 void hard_fault_handler(void)
 {
 	/* Do nothing. */
 }
 
+__attribute__ ((section(".handlerfunctions")))
 void mem_manage_handler(void)
 {
 	extern unsigned _etext,end,_sumfunend,_sumfunstart;
