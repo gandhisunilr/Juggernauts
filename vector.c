@@ -203,18 +203,9 @@ __attribute__ ((section(".handlerfunctions")))
 void mem_manage_handler(void)
 {
 	extern unsigned _etext,end,_sumfunend,_sumfunstart;
-	unsigned *src,*dest;
+	unsigned *src,*dest,*nxaddr,offset,*lraddr;
 	int code_size;
-	code_size= &_sumfunend - &_sumfunstart;
 
-		for(dest=&end,
-			src=&_etext; src<= &_etext + code_size;
-				src++,dest++)
-		{	
-			*dest=*src;
-		}	
-
-      
 	asm(
 	"TST LR, #4;"
 	"ITE EQ;"
@@ -222,8 +213,30 @@ void mem_manage_handler(void)
 	"MRSNE R0, PSP;"
 	);
 
-	asm("mov %0, r0" : "=r"(dest));
-	dest[12] = &end;
+	asm("mov %0, r0" : "=r"(lraddr));			
+	nxaddr=lraddr[12];
+	offset=((int)nxaddr)-0xc0000000;
+		      
+	code_size= &_sumfunend - &_sumfunstart;
+
+		for(dest=&end,
+			src=&_etext+offset; src<= &_etext + code_size;
+				src++,dest++)
+		{	
+			*dest=*src;
+		}	
+
+      asm(
+	"TST LR, #4;"
+	"ITE EQ;"
+	"MRSEQ R0, MSP;"
+	"MRSNE R0, PSP;"
+	);
+
+	asm("mov %0, r0" : "=r"(lraddr));			
+
+		lraddr[12] = &end;
+		lraddr[2] = &end;				
 	return;	
 
 }
