@@ -220,7 +220,7 @@ void mem_manage_handler(void)
 	code_size= &_sumfunend - &_sumfunstart;
 
 		for(dest=&end,
-			src=&_etext+offset; src<= &_etext + code_size;
+			src=&_etext+(offset/2); src<= &_etext + (code_size/2);
 				src++,dest++)
 		{	
 			*dest=*src;
@@ -234,7 +234,7 @@ void mem_manage_handler(void)
 	);
 
 	asm("mov %0, r0" : "=r"(lraddr));			
-
+		lraddr[14] = &end;
 		lraddr[12] = &end;
 		lraddr[2] = &end;				
 	return;	
