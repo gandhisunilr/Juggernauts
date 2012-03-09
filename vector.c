@@ -226,17 +226,8 @@ void mem_manage_handler(void)
 			*dest=*src;
 		}	
 
-      asm(
-	"TST LR, #4;"
-	"ITE EQ;"
-	"MRSEQ R0, MSP;"
-	"MRSNE R0, PSP;"
-	);
-
-	asm("mov %0, r0" : "=r"(lraddr));			
-
 		lraddr[12] = &end;
-		lraddr[2] = &end;				
+//		lraddr[2] = &end;				
 	return;	
 
 }
