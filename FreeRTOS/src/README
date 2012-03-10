@@ -1,0 +1,11 @@
+
+Building
+--------
+
+ $ make
+
+
+REMOVING FILES
+
+ $ make clean
+
