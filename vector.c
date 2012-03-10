@@ -204,7 +204,7 @@ void mem_manage_handler(void)
 {
 	extern unsigned _etext,end,_sumfunend,_sumfunstart;
 	unsigned *src,*dest,*nxaddr,offset,*lraddr;
-	int code_size;
+	int func_size;
 
 	asm(
 	"TST LR, #4;"
@@ -217,15 +217,24 @@ void mem_manage_handler(void)
 	nxaddr=lraddr[12];
 	offset=((int)nxaddr)-0xc0000000;
 		      
-	code_size= &_sumfunend - &_sumfunstart;
+	func_size= &_sumfunend - &_sumfunstart;
 
 		for(dest=&end,
-			src=&_etext+offset; src<= &_etext + code_size;
+			src=&_etext+(offset/2); src<= &_etext + (func_size/2);
 				src++,dest++)
 		{	
 			*dest=*src;
 		}	
 
+      asm(
+	"TST LR, #4;"
+	"ITE EQ;"
+	"MRSEQ R0, MSP;"
+	"MRSNE R0, PSP;"
+	);
+
+	asm("mov %0, r0" : "=r"(lraddr));			
+		lraddr[14] = &end;
 		lraddr[12] = &end;
 //		lraddr[2] = &end;				
 	return;	

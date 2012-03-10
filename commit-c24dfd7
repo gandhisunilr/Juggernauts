@@ -1,0 +1,32 @@
+commit c24dfd7c568847b12700f12e7998edf53b0f62d1
+Author: Sunil <sunil.gandhi007@gmail.com>
+Date:   Fri Mar 9 22:25:41 2012 +0530
+
+    change of name code_size to appropriate name func_size
+
+diff --git a/vector.c b/vector.c
+index 5a51caf..6a1f76a 100644
+--- a/vector.c
++++ b/vector.c
+@@ -204,7 +204,7 @@ void mem_manage_handler(void)
+ {
+ 	extern unsigned _etext,end,_sumfunend,_sumfunstart;
+ 	unsigned *src,*dest,*nxaddr,offset,*lraddr;
+-	int code_size;
++	int func_size;
+ 
+ 	asm(
+ 	"TST LR, #4;"
+@@ -217,10 +217,10 @@ void mem_manage_handler(void)
+ 	nxaddr=lraddr[12];
+ 	offset=((int)nxaddr)-0xc0000000;
+ 		      
+-	code_size= &_sumfunend - &_sumfunstart;
++	func_size= &_sumfunend - &_sumfunstart;
+ 
+ 		for(dest=&end,
+-			src=&_etext+(offset/2); src<= &_etext + (code_size/2);
++			src=&_etext+(offset/2); src<= &_etext + (func_size/2);
+ 				src++,dest++)
+ 		{	
+ 			*dest=*src;
