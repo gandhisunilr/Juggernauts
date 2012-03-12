@@ -6,4 +6,6 @@
 *.elf
 *.map
 *.o
+*.out
+symtab
 
