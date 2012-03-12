@@ -1,16 +1,26 @@
 
-
-make
-echo "Creating Symbol Table"
-rm main.bin 
-rm main.elf
-rm startup_stm32f10x_cl.o
-rm symtab.h
-rm main.list
-./a.out > op
 #make clean
 make
 
+echo "Dumping ELF file to get symbol table"
+
+./elfdump -s main.elf > symtab
+
+rm main.bin 
+
+rm main.elf
+
+rm startup_stm32f10x_cl.o
+
+rm main.list
+
+echo "Creating Symbol Table"
+
+./create_symtab.out > op
+
+#make clean
+
+make
 
 #arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -g -T linker.ld -c main.c vector.c sum.c
 #arm-none-eabi-ld -T linker.ld main.o vector.o sum.o -o main.elf 
