@@ -1,0 +1,6 @@
+
+
+
+
+added :
+ xn (rwx) : ORIGIN = 0xC0000000, LENGTH = 64K
