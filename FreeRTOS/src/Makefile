@@ -22,7 +22,7 @@ OBJS		= flop.o stm3210e_eval_lcd.o tasks.o queue.o syscalls.o main.o timertest.o
 	stm32f10x_usart.o stm32f10x_tim.o stm32f10x_spi.o stm32f10x_sdio.o stm32f10x_rcc.o stm32f10x_i2c.o stm32f10x_gpio.o \
 	stm32f10x_fsmc.o stm32f10x_flash.o stm32f10x_exti.o stm32f10x_dma.o misc.o system_stm32f10x.o startup_stm32f10x_cl.o \
 			core_cm3.o stm32_eval_spi_flash.o fonts.o stm3210e_eval_fsmc_sram.o stm3210e_eval_fsmc_nor.o \
-			stm3210e_eval_fsmc_nand.o stm3210e_eval.o ParTest.o
+			stm3210e_eval_fsmc_nand.o stm3210e_eval.o ParTest.o flash1.o gpio.o rcc.o
 
 # AltPollQ.o  crhook.o  AltQTest.o AltBlock.o AltBlckQ.o countsem.o IntQueue.o crflash.o 
 

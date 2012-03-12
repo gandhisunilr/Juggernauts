@@ -37,6 +37,8 @@
  */
 
 /* Includes ------------------------------------------------------------------*/
+#include "stm32f10x.h"
+
 /* Private typedef -----------------------------------------------------------*/
 /* Private typedef -----------------------------------------------------------*/
 typedef void( *const intfunc )( void );
@@ -297,8 +299,19 @@ void OTG_FS_IRQHandler(void);
  */
 int i;
 void Reset_Handler(void) {
+
 	//i=1;
 	//while(i);
+
+/* code added to enable interrupts */
+	volatile uint32_t *CCR,*SHCSR;
+
+	CCR=(uint32_t *)0xE000ED14;
+	*CCR=528;
+	SHCSR=(uint32_t *)0xE000ED24;
+	*SHCSR=0x70000;
+
+
 
 #ifdef STARTUP_DELAY
 	volatile unsigned long i;
@@ -434,9 +447,9 @@ void __Init_Data(void) {
 
 void Default_Handler(void) {
 	/* Go into an infinite loop. */
-	while (1)  {
-	  asm volatile ("nop");
-  }
+	//while (1)  {
+	  //asm volatile ("nop");
+  //}
 	asm volatile ("nop");
 	asm volatile ("nop");
 	asm volatile ("nop");

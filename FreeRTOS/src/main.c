@@ -82,8 +82,8 @@
 
 
 /* Standard includes. */
-//#include <stdio.h>
-#include "printf.h"
+#include <stdio.h>
+//#include "printf.h"
 #include <string.h>
 
 /* Scheduler includes. */
@@ -262,13 +262,53 @@ void printOnLCD(char *msg){
 }
 
 
+#include "rcc.h"
+#include "gpio.h"
+
+/* Set STM32 to 72 MHz. */
+void clock_setup(void)
+{
+	rcc_clock_setup_in_hse_8mhz_out_72mhz();
+
+	/* Enable GPIOC clock. */
+	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_IOPCEN);
+}
+
+void gpio_setup(void)
+{
+	/* Set GPIO6/7 (in GPIO port C) to 'output push-pull'. */
+	gpio_set_mode(GPIOC, GPIO_MODE_OUTPUT_50_MHZ,
+		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO6);
+	gpio_set_mode(GPIOC, GPIO_MODE_OUTPUT_50_MHZ,
+		      GPIO_CNF_OUTPUT_PUSHPULL, GPIO7);
+}
+
+void blinky()
+{
+	int i;
+
+	clock_setup();
+	gpio_setup();
+
+	/* Blink the LEDs (PC6 and PC7) on the board. */
+	while (1) {
+		gpio_toggle(GPIOC, GPIO6);	/* STAT1 LED on/off */
+		gpio_toggle(GPIOC, GPIO7);	/* STAT2 LED on/off */
+		for (i = 0; i < 8000000; i++)	/* Wait a bit. */
+			__asm__("nop");
+	}
+
+
+}
+
+
+
 int main( void )
 {
 #ifdef DEBUG
   debug();
 #endif
-
-
+	//blinky();
 	prvSetupHardware();
 
 	/* Create the queue used by the LCD task.  Messages for display on the LCD
@@ -285,8 +325,11 @@ int main( void )
 	vAltStartComTestTasks( mainCOM_TEST_PRIORITY, mainCOM_TEST_BAUD_RATE, mainCOM_TEST_LED );
 
 	/* Start the tasks defined within this file/specific to this demo. */
-    xTaskCreate( vCheckTask, ( signed portCHAR * ) "Check", mainCHECK_TASK_STACK_SIZE, NULL, mainCHECK_TASK_PRIORITY, NULL );
-	xTaskCreate( vLCDTask, ( signed portCHAR * ) "LCD", mainLCD_TASK_STACK_SIZE, NULL, tskIDLE_PRIORITY, NULL );
+    	//xTaskCreate( vCheckTask, ( signed portCHAR * ) "blinky", mainCHECK_TASK_STACK_SIZE, NULL, mainCHECK_TASK_PRIORITY, NULL );
+	//xTaskCreate( vLCDTask, ( signed portCHAR * ) "blinky", mainLCD_TASK_STACK_SIZE, NULL, tskIDLE_PRIORITY, NULL );
+
+    	xTaskCreate( blinky, ( signed portCHAR * ) "blinky", mainCHECK_TASK_STACK_SIZE, NULL, mainCHECK_TASK_PRIORITY, NULL );
+	xTaskCreate( blinky, ( signed portCHAR * ) "blinky", mainLCD_TASK_STACK_SIZE, NULL, tskIDLE_PRIORITY, NULL );
 
 	/* The suicide tasks must be created last as they need to know how many
 	tasks were running prior to their creation in order to ascertain whether
@@ -301,13 +344,15 @@ int main( void )
 
     /* Will only get here if there was insufficient memory to create the idle
     task. */
+	for( ;; );
 	return 0;
+	
 }
 /*-----------------------------------------------------------*/
 
 void vLCDTask( void *pvParameters )
 {
-xLCDMessage xMessage;
+	xLCDMessage xMessage;
 
 	/* Initialise the LCD and display a startup message. */
 	prvConfigureLCD();
