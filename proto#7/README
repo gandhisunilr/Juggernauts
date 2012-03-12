@@ -1,0 +1,8 @@
+i created symtab.h file for storing symbols in structure.
+
+I have defined (at end of file follwing macro )
+
+#define SYMTAB 
+
+so we can code if there is SYMTAB is added....
+
