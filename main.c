@@ -1,7 +1,6 @@
 #include<stdint.h>
 
 int a=0;
-__attribute__ ((section(".handlerfunctions")))
 int main(void)
 {
 
