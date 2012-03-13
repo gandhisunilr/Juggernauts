@@ -8,4 +8,5 @@
 *.o
 *.out
 symtab
+symtab.h
 
