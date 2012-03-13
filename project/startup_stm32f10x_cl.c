@@ -307,9 +307,9 @@ void __Init_Data(void) {
 __attribute__ ((section(".handlerfunctions")))
 void MemManage_Handler(void)
 {
-	extern unsigned end,_sumfunend,_sumfunstart;
-	unsigned *src,*dest,*nxaddr,offset,*lraddr;
-	int func_size;
+	extern unsigned end, _sumfunend, _sumfunstart;
+	unsigned *src, *dest, *xnaddr, offset, *lraddr;	
+	int func_size, section_size;
 
 	asm(
 	"TST LR, #4;"
@@ -319,14 +319,28 @@ void MemManage_Handler(void)
 	);
 
 	asm("mov %0, r0" : "=r"(lraddr));			
-	nxaddr=lraddr[12];
-	offset=((int)nxaddr)-(int)0xc0000000;
+	xnaddr=lraddr[12];
+	offset=((int)xnaddr)-(int)0xc0000000;
 		      
-	func_size= &_sumfunend - &_sumfunstart;
+	//func_size= &_sumfunend - &_sumfunstart;
+
+	//fun_start_address = (unsigned long *)&symbols[0];
+	i=0;
+	while( &_etext > &symbols[i])
+	{
+		if ( symbols[i].fun_start_address == ( xnaddr) )
+		{
+			section_size = symbols[i].fun_size;
+			break;
+		}
+		i++;
+	}
+	
 	func_size=4;
-		for(dest=&end,
-			src=&_etext+(offset/2); src<= &_etext + (func_size/2);
-				src++,dest++)
+//		for(dest=&end,
+//			src=&_etext+(offset/2); src<= &_etext + (func_size/2);
+//				src++,dest++)
+		for(dest=&end, src=&_etext+(offset/2); src<=( &_etext +(func_size/2) + section_size ); src++, dest++)
 		{	
 			*dest=*src;
 		}	
