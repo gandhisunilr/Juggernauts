@@ -54,7 +54,7 @@ __attribute__((section(\".symtab\"))) symtab symbols[200]= { \
 	
 		if( fscanf(file, "entry: %d \n%[^\n] st_value:%x st_size:%d st_info:%[^\n] st_shndx:%d\n", &sno, name, &symbols[i].value, &symbols[i].size, info, &shndx) == EOF )
 			break;
-		printf("entry: %d\n\tst_name:%s\n\tst_value:%x\n\tst_size:%d\n\tst_info:%s\n\tst_shndx:%d\n", sno, name, symbols[i].value, symbols[i].size, info, shndx); 
+//		printf("entry: %d\n\tst_name:%s\n\tst_value:%x\n\tst_size:%d\n\tst_info:%s\n\tst_shndx:%d\n", sno, name, symbols[i].value, symbols[i].size, info, shndx); 
 		//fprintf(fileout, "\n\tsymbols[%d].value = 0x%x; \n\tsymbols[%d].size = %d;", i, symbols[i].value, i, symbols[i].size);
 		entry_exist_flag = 0;
 

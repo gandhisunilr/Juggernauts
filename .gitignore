@@ -7,6 +7,6 @@
 *.map
 *.o
 *.out
-symtab
+symtabgen
 symtab.h
 
