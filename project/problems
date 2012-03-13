@@ -1,0 +1,13 @@
+1> Hey i am not getting correct xnaddr in MemManage_Handler() function
+
+i.e. xnaddr=lraddr[12];
+
+--swapnil
+
+
+2> also getting problem in where to save return address ....
+lraddr[14] = &end;
+lraddr[12] = &end;
+
+--swapnil
+
