@@ -1,11 +1,7 @@
-1> first run make command and create main.elf file
+Commands to be execute for runninf code
 
-2> then get symbols from main.elf file by running ./elfdump -s main.elf > symtab
-	you will get all symbols in "symtab" file
+1) make
 
-3> then add all those symbols in symtab.h file by running :-> ./dump_elf_file.o 
+2) make attachsymtab
 
-4> again run the make command to get modified main.elf file containing symbols 
-	values. ( for this you have to remove main.bin main.elf and 
-	startup_stm32f10x_cl.o  ) 
-
+3) make
