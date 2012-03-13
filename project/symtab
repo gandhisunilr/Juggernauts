@@ -115,7 +115,7 @@ entry: 15
 
 entry: 16
 	st_name: $d
-	st_value: 0x8000460
+	st_value: 0x8000450
 	st_size: 0
 	st_info: STT_NOTYPE STB_LOCAL
 	st_shndx: 1
@@ -192,21 +192,21 @@ entry: 26
 
 entry: 27
 	st_name: __main_veneer
-	st_value: 0x8000451
+	st_value: 0x8000441
 	st_size: 16
 	st_info: STT_FUNC STB_LOCAL
 	st_shndx: 1
 
 entry: 28
 	st_name: $t
-	st_value: 0x8000450
+	st_value: 0x8000440
 	st_size: 0
 	st_info: STT_NOTYPE STB_LOCAL
 	st_shndx: 1
 
 entry: 29
 	st_name: $d
-	st_value: 0x800045c
+	st_value: 0x800044c
 	st_size: 0
 	st_info: STT_NOTYPE STB_LOCAL
 	st_shndx: 1
@@ -220,28 +220,28 @@ entry: 30
 
 entry: 31
 	st_name: EXTI2_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
 
 entry: 32
 	st_name: DebugMon_Handler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
 
 entry: 33
 	st_name: TIM1_CC_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
 
 entry: 34
 	st_name: HardFault_Handler
-	st_value: 0x8000441
+	st_value: 0x8000435
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
@@ -255,63 +255,63 @@ entry: 35
 
 entry: 36
 	st_name: TIM6_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
 
 entry: 37
 	st_name: SysTick_Handler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
 
 entry: 38
 	st_name: PVD_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
 
 entry: 39
 	st_name: _sidata
-	st_value: 0x8000ad8
+	st_value: 0x8000ac8
 	st_size: 0
 	st_info: STT_NOTYPE STB_GLOBAL
 	st_shndx: 65521
 
 entry: 40
 	st_name: PendSV_Handler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
 
 entry: 41
 	st_name: NMI_Handler
-	st_value: 0x8000435
+	st_value: 0x8000429
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
 
 entry: 42
 	st_name: CAN2_RX1_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
 
 entry: 43
 	st_name: EXTI3_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
 
 entry: 44
 	st_name: _etext
-	st_value: 0x8000aa0
+	st_value: 0x8000a90
 	st_size: 0
 	st_info: STT_NOTYPE STB_GLOBAL
 	st_shndx: 1
@@ -325,28 +325,28 @@ entry: 45
 
 entry: 46
 	st_name: EXTI0_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
 
 entry: 47
 	st_name: I2C2_EV_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
 
 entry: 48
 	st_name: CAN1_RX0_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
 
 entry: 49
 	st_name: UsageFault_Handler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
@@ -367,14 +367,14 @@ entry: 51
 
 entry: 52
 	st_name: CAN2_SCE_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
 
 entry: 53
 	st_name: ADC1_2_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
@@ -395,14 +395,14 @@ entry: 55
 
 entry: 56
 	st_name: SPI1_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
 
 entry: 57
 	st_name: TAMPER_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
@@ -416,35 +416,35 @@ entry: 58
 
 entry: 59
 	st_name: CAN2_RX0_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
 
 entry: 60
 	st_name: DMA2_Channel2_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
 
 entry: 61
 	st_name: DMA1_Channel4_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
 
 entry: 62
 	st_name: USART3_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
 
 entry: 63
 	st_name: RTC_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
@@ -458,7 +458,7 @@ entry: 64
 
 entry: 65
 	st_name: DMA1_Channel7_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
@@ -472,28 +472,28 @@ entry: 66
 
 entry: 67
 	st_name: CAN1_RX1_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
 
 entry: 68
 	st_name: UART5_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
 
 entry: 69
 	st_name: TIM4_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
 
 entry: 70
 	st_name: DMA2_Channel1_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
@@ -514,7 +514,7 @@ entry: 72
 
 entry: 73
 	st_name: I2C1_EV_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
@@ -528,77 +528,77 @@ entry: 74
 
 entry: 75
 	st_name: DMA1_Channel6_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
 
 entry: 76
 	st_name: UART4_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
 
 entry: 77
 	st_name: DMA2_Channel4_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
 
 entry: 78
 	st_name: TIM3_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
 
 entry: 79
 	st_name: RCC_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
 
 entry: 80
 	st_name: TIM1_TRG_COM_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
 
 entry: 81
 	st_name: DMA1_Channel1_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
 
 entry: 82
 	st_name: symbols
-	st_value: 0x8000460
+	st_value: 0x8000450
 	st_size: 1600
 	st_info: STT_OBJECT STB_GLOBAL
 	st_shndx: 1
 
 entry: 83
 	st_name: Default_Handler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_GLOBAL
 	st_shndx: 1
 
 entry: 84
 	st_name: EXTI15_10_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
 
 entry: 85
 	st_name: TIM7_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
@@ -612,35 +612,35 @@ entry: 86
 
 entry: 87
 	st_name: CAN2_TX_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
 
 entry: 88
 	st_name: TIM5_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
 
 entry: 89
 	st_name: EXTI9_5_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
 
 entry: 90
 	st_name: ETH_WKUP_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
 
 entry: 91
 	st_name: SPI2_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
@@ -648,7 +648,7 @@ entry: 91
 entry: 92
 	st_name: MemManage_Handler
 	st_value: 0x80002d5
-	st_size: 340
+	st_size: 328
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
 
@@ -668,21 +668,21 @@ entry: 94
 
 entry: 95
 	st_name: CAN1_TX_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
 
 entry: 96
 	st_name: SVC_Handler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
 
 entry: 97
 	st_name: DMA2_Channel5_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
@@ -696,14 +696,14 @@ entry: 98
 
 entry: 99
 	st_name: DMA1_Channel5_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
 
 entry: 100
 	st_name: EXTI4_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
@@ -717,49 +717,49 @@ entry: 101
 
 entry: 102
 	st_name: DMA1_Channel3_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
 
 entry: 103
 	st_name: ETH_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
 
 entry: 104
 	st_name: TIM1_UP_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
 
 entry: 105
 	st_name: WWDG_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
 
 entry: 106
 	st_name: TIM2_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
 
 entry: 107
 	st_name: OTG_FS_WKUP_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
 
 entry: 108
 	st_name: TIM1_BRK_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
@@ -773,7 +773,7 @@ entry: 109
 
 entry: 110
 	st_name: EXTI1_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
@@ -787,14 +787,14 @@ entry: 111
 
 entry: 112
 	st_name: RTCAlarm_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
 
 entry: 113
 	st_name: USART2_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
@@ -808,63 +808,63 @@ entry: 114
 
 entry: 115
 	st_name: I2C2_ER_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
 
 entry: 116
 	st_name: DMA1_Channel2_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
 
 entry: 117
 	st_name: CAN1_SCE_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
 
 entry: 118
 	st_name: FLASH_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
 
 entry: 119
 	st_name: BusFault_Handler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
 
 entry: 120
 	st_name: USART1_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
 
 entry: 121
 	st_name: OTG_FS_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
 
 entry: 122
 	st_name: SPI3_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
 
 entry: 123
 	st_name: I2C1_ER_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
@@ -878,14 +878,14 @@ entry: 124
 
 entry: 125
 	st_name: MMI_Handler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
 
 entry: 126
 	st_name: DMA2_Channel3_IRQHandler
-	st_value: 0x8000429
+	st_value: 0x800041d
 	st_size: 10
 	st_info: STT_FUNC STB_WEAK
 	st_shndx: 1
