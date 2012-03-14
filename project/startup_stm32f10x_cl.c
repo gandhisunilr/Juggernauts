@@ -33,7 +33,7 @@ extern unsigned long _estack;
 /* Emul Eeprom start address. defined in linker script */
 extern unsigned long _seemul2;
 
-//extern unsigned _data,_etext, _edata, _ebss, _stack;
+extern unsigned end;
 
 
 /* Private variables ---------------------------------------------------------*/
@@ -256,7 +256,7 @@ void WEAK OTG_FS_IRQHandler(void);
 
 void **HARDFAULT_PSP;
 register void **stack_pointer asm("sp");
-unsigned int spt;
+unsigned *lowestaddr = &end;
 int i;
 __attribute__ ((section(".handlerfunctions")))
 void Reset_Handler(void) {
@@ -304,8 +304,8 @@ void __Init_Data(void) {
 __attribute__ ((section(".handlerfunctions")))
 void MemManage_Handler(void)
 {
-	extern unsigned end, _sumfunend, _sumfunstart;
-	unsigned *src, *dest, *xnaddr, *lraddr;	
+	extern unsigned end;
+	unsigned *src, *dest, *xnaddr, *lraddr,*temp;	
 	int func_size, offset;
 
 	asm(
@@ -316,13 +316,13 @@ void MemManage_Handler(void)
 	);
 
 	asm("mov %0, r0" : "=r"(lraddr));			
-	xnaddr=lraddr[14];
+	xnaddr=lraddr[13];
 	offset=((int)xnaddr)-(int)0xc0000000;
-		      
+		
 
-	#ifdef SYMTAB
+#ifdef SYMTAB
 	i=0;
-	while( &_etext > &symbols[i])
+	while( &_edata > &symbols[i])
 	{
 		if ( (symbols[i].fun_start_address | 0x01) == ( (int)xnaddr | 1) )
 		{
@@ -332,13 +332,17 @@ void MemManage_Handler(void)
 		i++;
 	}
 #endif	
+symbols[i].load_time_address = lowestaddr;
+	dest=lowestaddr;
+	temp=lowestaddr;
+	for( src=&_etext+(offset/4); src<= &_etext +(func_size/4)+(offset/4) ; src++, dest++)
+	{	
+		*dest=*src;
+	}	
+	
+	lowestaddr=dest;
 
-		for(dest=&end, src=&_etext+(offset/4); src<= &_etext +(func_size/4)+(offset/4) ; src++, dest++)
-		{	
-			*dest=*src;
-		}	
-
-      asm(
+	      asm(
 	"TST LR, #4;"
 	"ITE EQ;"
 	"MRSEQ R0, MSP;"
@@ -346,8 +350,8 @@ void MemManage_Handler(void)
 	);
 
 	asm("mov %0, r0" : "=r"(lraddr));			
-		lraddr[14] = &end;
-		lraddr[12] = &end;
+		lraddr[13] = temp;
+		lraddr[16] = temp;
 //		lraddr[2] = &end;				
 	return;	
 

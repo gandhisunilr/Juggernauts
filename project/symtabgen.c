@@ -43,8 +43,8 @@ typedef struct symtab\n	 \
 {\n			\
 	int fun_start_address;\n	\
 	int fun_size;\n	\
-	int Load_time_address;\n\
-	int function_loaded_flag;\n\
+	int load_time_address;\n\
+	int presentbit;\n\
 }symtab;\n\
 \n	\
 __attribute__((section(\".symtab\"))) symtab symbols[200]= { \

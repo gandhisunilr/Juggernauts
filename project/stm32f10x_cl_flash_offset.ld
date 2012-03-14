@@ -40,7 +40,7 @@ SECTIONS
         *(.rodata)                 /* read-only data (constants) */
         *(.glue_7)
         *(.glue_7t)
-	*(.symtab);
+
 	 . = ALIGN(4);
    	 _etext = .;
     } >FLASH
@@ -61,6 +61,7 @@ SECTIONS
         _sdata = . ;    
         *(.data)
         . = ALIGN(4);
+	*(.symtab);
    	 _edata = . ;
     } >RAM
 
