@@ -305,8 +305,8 @@ __attribute__ ((section(".handlerfunctions")))
 void MemManage_Handler(void)
 {
 	extern unsigned end, _sumfunend, _sumfunstart;
-	unsigned *src, *dest, *xnaddr, offset, *lraddr;	
-	int func_size;
+	unsigned *src, *dest, *xnaddr, *lraddr;	
+	int func_size, offset;
 
 	asm(
 	"TST LR, #4;"
@@ -319,10 +319,8 @@ void MemManage_Handler(void)
 	xnaddr=lraddr[14];
 	offset=((int)xnaddr)-(int)0xc0000000;
 		      
-	//func_size= &_sumfunend - &_sumfunstart;
 
-	//fun_start_address = (unsigned long *)&symbols[0];
-#ifdef SYMTAB
+	#ifdef SYMTAB
 	i=0;
 	while( &_etext > &symbols[i])
 	{
@@ -335,10 +333,7 @@ void MemManage_Handler(void)
 	}
 #endif	
 
-//		for(dest=&end,
-//			src=&_etext+(offset/2); src<= &_etext + (func_size/2);
-//				src++,dest++)
-		for(dest=&end, src=&_etext+(offset/4); src<= &_etext +(func_size/4) ; src++, dest++)
+		for(dest=&end, src=&_etext+(offset/4); src<= &_etext +(func_size/4)+(offset/4) ; src++, dest++)
 		{	
 			*dest=*src;
 		}	
