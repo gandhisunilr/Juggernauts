@@ -4,7 +4,7 @@ int a=0;
 int main(void)
 {
 
-	sum();
+	a=sum();
 	while(1);
 }
 

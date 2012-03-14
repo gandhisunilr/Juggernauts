@@ -23,7 +23,7 @@ THUMBPATH 	= "/home/sunil/Documents/CodeSourcery/Sourcery_G++_Lite/lib/gcc/arm-n
 LIBRARYPATH 	= "/home/sunil/Documents/CodeSourcery/Sourcery_G++_Lite/arm-none-eabi/lib"
 
 #flags
-CCFLAGS 	= -mcpu=$(mcpu) -mthumb -g -T $(linkerscript) -c 
+CCFLAGS 	= -mcpu=$(mcpu) -mthumb -g -T $(linkerscript) -mlong-calls -c 
 LDFLAGS 	= -T $(linkerscript) -L $(THUMBPATH) -lgcc -L $(LIBRARYPATH) -lc -o $(ELF)
 DUMPFLAGS 	= -D -S
 DUMPFLAGSDETAIL = -D

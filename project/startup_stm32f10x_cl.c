@@ -279,9 +279,6 @@ void Reset_Handler(void) {
 	*SHCSR=0x70000;
 	asm("MSR msp, %0" : : "r"(&_estack));
 
-#ifdef SYMTAB
-//	symbols[0].value = 110;
-#endif
 	main();
 
 }
@@ -325,21 +322,23 @@ void MemManage_Handler(void)
 	//func_size= &_sumfunend - &_sumfunstart;
 
 	//fun_start_address = (unsigned long *)&symbols[0];
+#ifdef SYMTAB
 	i=0;
 	while( &_etext > &symbols[i])
 	{
-		if ( symbols[i].fun_start_address == ( xnaddr) )
+		if ( (symbols[i].fun_start_address | 0x01) == ( (int)xnaddr | 1) )
 		{
 			func_size = symbols[i].fun_size;
 			break;
 		}
 		i++;
 	}
-	
+#endif	
+
 //		for(dest=&end,
 //			src=&_etext+(offset/2); src<= &_etext + (func_size/2);
 //				src++,dest++)
-		for(dest=&end, src=&_etext+(offset/2); src<= &_etext +(func_size/2) ; src++, dest++)
+		for(dest=&end, src=&_etext+(offset/4); src<= &_etext +(func_size/4) ; src++, dest++)
 		{	
 			*dest=*src;
 		}	
