@@ -5,7 +5,7 @@ int main(void)
 {
 
 	a=sum();
-	while(1);
+
 }
 
 
