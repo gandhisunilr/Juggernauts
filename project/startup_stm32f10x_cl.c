@@ -280,7 +280,7 @@ void Reset_Handler(void) {
 	asm("MSR msp, %0" : : "r"(&_estack));
 
 	main();
-
+	while(1);
 }
 
 __attribute__ ((section(".handlerfunctions")))
@@ -332,7 +332,7 @@ void MemManage_Handler(void)
 		i++;
 	}
 #endif	
-symbols[i].load_time_address = lowestaddr;
+	symbols[i].load_time_address = lowestaddr;
 	dest=lowestaddr;
 	temp=lowestaddr;
 	for( src=&_etext+(offset/4); src<= &_etext +(func_size/4)+(offset/4) ; src++, dest++)
