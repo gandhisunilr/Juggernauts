@@ -255,7 +255,7 @@ void WEAK OTG_FS_IRQHandler(void);
 		};
 
 void **HARDFAULT_PSP;
-register void **stack_pointer asm("sp");
+//register void **stack_pointer asm("sp");
 unsigned *lowestaddr = &end;
 int i;
 __attribute__ ((section(".handlerfunctions")))
@@ -304,8 +304,8 @@ void __Init_Data(void) {
 __attribute__ ((section(".handlerfunctions")))
 void MemManage_Handler(void)
 {
-	extern unsigned end;
-	unsigned *src, *dest, *xnaddr, *lraddr,*temp;	
+	extern unsigned end, end_of_ram;
+	unsigned *src, *dest, *xnaddr, *link_reg_addr, *temp, *stack_pointer;
 	int func_size, offset;
 
 	asm(
@@ -315,13 +315,13 @@ void MemManage_Handler(void)
 	"MRSNE R0, PSP;"
 	);
 
-	asm("mov %0, r0" : "=r"(lraddr));			
-	xnaddr=lraddr[13];
-	offset=((int)xnaddr)-(int)0xc0000000;
+	asm("mov %0, r0" : "=r"(stack_pointer));			
+	xnaddr = (unsigned *) stack_pointer[13];
+	offset = ((int)xnaddr)-(int)0xc0000000;
 		
 
-#ifdef SYMTAB
-	i=0;
+//#ifdef SYMTAB
+	i = 0;
 	while( &_edata > &symbols[i])
 	{
 		if ( (symbols[i].fun_start_address | 0x01) == ( (int)xnaddr | 1) )
@@ -331,17 +331,34 @@ void MemManage_Handler(void)
 		}
 		i++;
 	}
-#endif	
-	symbols[i].load_time_address = lowestaddr;
-	dest=lowestaddr;
-	temp=lowestaddr;
-	for( src=&_etext+(offset/4); src<= &_etext +(func_size/4)+(offset/4) ; src++, dest++)
-	{	
-		*dest=*src;
-	}	
-	
-	lowestaddr=dest;
+//#endif
+	/* check if section is already preset in the RAM */
+	if ( symbols[i].presentbit == 0 )
+	{
+		symbols[i].load_time_address =(uint32_t) lowestaddr;
+		dest = lowestaddr;
 
+		
+		/*  copy required section in RAM */
+		for( src = &_etext+(offset/4); 
+			src <= &_etext +(func_size/4)+(offset/4); 
+				src++, dest++)
+		{	
+			*dest=*src;
+		}	
+		symbols[i].presentbit = 1;	
+		link_reg_addr = lowestaddr;
+
+		lowestaddr=dest;
+
+
+	}
+	else
+	{
+		/* section is already in RAM */
+		link_reg_addr = symbols[i].load_time_address;
+
+	}
 	      asm(
 	"TST LR, #4;"
 	"ITE EQ;"
@@ -349,10 +366,10 @@ void MemManage_Handler(void)
 	"MRSNE R0, PSP;"
 	);
 
-	asm("mov %0, r0" : "=r"(lraddr));			
-		lraddr[13] = temp;
-		lraddr[16] = temp;
-//		lraddr[2] = &end;				
+	/* save link register value */
+	asm("mov %0, r0" : "=r"(stack_pointer));			
+		stack_pointer[13] = link_reg_addr;
+		stack_pointer[16] = link_reg_addr;
 	return;	
 
 }
