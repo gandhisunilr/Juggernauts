@@ -1,14 +1,13 @@
 #include<stdint.h>
 
-int a=0;
+int a = 0;
 int main(void)
 {
 
-	a=sum();
-
+	a = sum();
+	a = sub();
+	a = sum();
 }
-
-
 
 void usage_fault_handler(){
 
