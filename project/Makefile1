@@ -1,0 +1,45 @@
+# DO NOT CHANGE THE BELOW PART. JUST ADD FILE NAMES AT PROPER PLACE AND LIBRARY PATH
+
+#commands
+CC = arm-none-eabi-gcc
+LD = arm-none-eabi-ld
+OBJDUMP = arm-none-eabi-objdump
+OBJCOPY = arm-none-eabi-objcopy
+
+# files
+mcpu = cortex-m3
+linkerscript = stm32f10x_cl_flash_offset.ld
+SRCS = main.c startup_stm32f10x_cl.c sum.c
+OBJS = main.o startup_stm32f10x_cl.o sum.o
+ELF = main.elf
+LIST = main.list
+LISTDETAIL = maindetail.list
+BINARY = main.bin
+THUMBPATH = "/home/swapnil/CodeSourcery/Sourcery_CodeBench_Lite_for_ARM_EABI/lib/gcc/arm-none-eabi/4.6.1/thumb2/"
+LIBRARYPATH = "/home/swapnil/CodeSourcery/Sourcery_CodeBench_Lite_for_ARM_EABI/arm-none-eabi/lib/"
+#flags
+CCFLAGS = -mcpu=$(mcpu) -mthumb -g  -c 
+#-T $(linkerscript)
+LDFLAGS = -T $(linkerscript) -L $(THUMBPATH) -lgcc -L $(LIBRARYPATH) -lc -o $(ELF)
+DUMPFLAGS = -D -S
+DUMPFLAGSDETAIL = -D
+OBJCOPYFLAGS = -O
+
+all : $(LISTDETAIL)
+
+$(LISTDETAIL) $(LIST) $(BINARY): $(ELF)
+	$(OBJDUMP) $(DUMPFLAGSDETAIL) $(ELF) > $(LISTDETAIL)
+	$(OBJDUMP) $(DUMPFLAGS) $(ELF) > $(LIST)
+	$(OBJCOPY) $(OBJCOPYFLAGS) binary $(ELF) $(BINARY)
+
+$(ELF) : $(OBJS)
+	$(LD) $(LDFLAGS) $(OBJS) -Map ./map.map  
+
+#$(OBJS) : $(SRCS)
+#	$(CC) $(CCFLAGS) $(SRCS)
+%.o: %.c
+	$(CC) $(CCFLAGS) -o $@ -c $<
+
+clean :
+	rm $(OBJS) $(ELF) $(LIST) $(LISTDETAIL) $(BINARY)
+

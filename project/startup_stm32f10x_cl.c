@@ -377,7 +377,7 @@ void MemManage_Handler(void)
 #pragma weak MMI_Handler = Default_Handler
 #pragma weak MemManage_Handler
 #pragma weak BusFault_Handler = Default_Handler
-#pragma weak UsageFault_Handler = Default_Handler
+#pragma weak UsageFault_Handler = Default_Handler 
 #pragma weak SVC_Handler = Default_Handler
 #pragma weak DebugMon_Handler = Default_Handler
 #pragma weak PendSV_Handler = Default_Handler

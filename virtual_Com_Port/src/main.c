@@ -26,9 +26,9 @@
 #include "usb_desc.h"
 #include "hw_config.h"
 #include "usb_pwr.h"
-#include "string.h"
+//#include "string.h"
 #include "printf.h"
-#define SET_LINE_CODING             0x20
+
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -46,7 +46,8 @@
 * Return         : None.
 *******************************************************************************/
 int ibreak;	
-int main(void)
+
+void init()
 {
   char data_buffer2[80]="\r\nSwapnilkumar Khorate \r\n\r\n";
   
@@ -72,77 +73,24 @@ int main(void)
 
 	
 		printf("This is me : %s", data_buffer2);
-		
-
-		//USB_To_USART_Send_Data(data_buffer, 80);
-		//	USB_OTG_BSP_uDelay(1000);
-		//USB_To_USART_Send_Data(data_buffer1, 80);
-		//	USB_OTG_BSP_uDelay(1000);
-//	      	USB_SIL_Write(EP1_IN, data_buffer, Nb_bytes);
-//		SetEPTxValid(ENDP1);
-
-//		USB_SIL_Write(EP1_IN, data_buffer1, 14);
-    //		SetEPTxValid(ENDP1);
-  	
-	
-  
-
-  while (1)
-  {
-	printf("This is my : %s", data_buffer);
-  }
 }
 
-/*******************************************************************************
+extern int sum();
+extern int sub();
 
-* Function Name  : virtual_com_port_init
-* Description    : Initialize virtual com port
-* Input          : None                  
-* Output         : None
-* Return         : None
-*******************************************************************************/
-void virtual_com_port_init()
+int a;
+int main(void)
 {
-  char data_buffer1[80]="*****************************************\r\n\r\n";
-  Set_System();
-  Set_USBClock();
-  USB_Interrupts_Config();
-  USB_Init();
 
+	init();
+	a = sum();
+	a = sub();
+	a = sum();
 
-Virtual_Com_Port_Data_Setup(SET_LINE_CODING);
-
-/*
-Initialize the USART to default values
-*/
-  //USART_Config_Default();
-
-	Virtual_Com_Port_init();
-
-/*
-Configure the USART with the parameters received by the SET_LINE_CODING
-request
-*/
-	Virtual_Com_Port_Status_In();
-
-  	USART_Config();
-/*
-
-Send the data received by the USART to the PC through USB
-*/
-
-	//USART_To_USB_Send_Data();
-
-	//printf("This is my : %s", data_buffer);
-	printf("This is my : %s", data_buffer1);
-
-
-/*
-Send the data received by the USB through USART
-*/
-
-
-	
+  	while (1)
+  	{
+		printf("\r\n\r\n Value Of a is :  %d",a);
+  	}
 }
 
 #ifdef USE_FULL_ASSERT

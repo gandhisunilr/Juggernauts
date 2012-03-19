@@ -213,12 +213,14 @@ int printf(const char *format, ...) {
 	}
 */
 	i=sz;
-	
+		
+	buf[i++] = '\r';
+	buf[i++] = '\n';
 	while(i < 255){
-		buf[i++] == '*';			
+		buf[i++] = '\r';			
 	}
 		
-		USB_To_USART_Send_Data(buf,255);
+		USB_To_USART_Send_Data(buf,i);
 		
 				
 //		i++;

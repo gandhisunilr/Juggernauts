@@ -1,0 +1,109 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+ADC1_2_IRQHandler	startup_stm32f10x_cl.c	400;"	d	file:
+BusFault_Handler	startup_stm32f10x_cl.c	376;"	d	file:
+CAN1_RX0_IRQHandler	startup_stm32f10x_cl.c	402;"	d	file:
+CAN1_RX1_IRQHandler	startup_stm32f10x_cl.c	403;"	d	file:
+CAN1_SCE_IRQHandler	startup_stm32f10x_cl.c	404;"	d	file:
+CAN1_TX_IRQHandler	startup_stm32f10x_cl.c	401;"	d	file:
+CAN2_RX0_IRQHandler	startup_stm32f10x_cl.c	439;"	d	file:
+CAN2_RX1_IRQHandler	startup_stm32f10x_cl.c	440;"	d	file:
+CAN2_SCE_IRQHandler	startup_stm32f10x_cl.c	441;"	d	file:
+CAN2_TX_IRQHandler	startup_stm32f10x_cl.c	438;"	d	file:
+DMA1_Channel1_IRQHandler	startup_stm32f10x_cl.c	393;"	d	file:
+DMA1_Channel2_IRQHandler	startup_stm32f10x_cl.c	394;"	d	file:
+DMA1_Channel3_IRQHandler	startup_stm32f10x_cl.c	395;"	d	file:
+DMA1_Channel4_IRQHandler	startup_stm32f10x_cl.c	396;"	d	file:
+DMA1_Channel5_IRQHandler	startup_stm32f10x_cl.c	397;"	d	file:
+DMA1_Channel6_IRQHandler	startup_stm32f10x_cl.c	398;"	d	file:
+DMA1_Channel7_IRQHandler	startup_stm32f10x_cl.c	399;"	d	file:
+DMA2_Channel1_IRQHandler	startup_stm32f10x_cl.c	431;"	d	file:
+DMA2_Channel2_IRQHandler	startup_stm32f10x_cl.c	432;"	d	file:
+DMA2_Channel3_IRQHandler	startup_stm32f10x_cl.c	433;"	d	file:
+DMA2_Channel4_IRQHandler	startup_stm32f10x_cl.c	434;"	d	file:
+DMA2_Channel5_IRQHandler	startup_stm32f10x_cl.c	435;"	d	file:
+DebugMon_Handler	startup_stm32f10x_cl.c	379;"	d	file:
+Default_Handler	startup_stm32f10x_cl.c	/^void Default_Handler(void) {$/;"	f
+ETH_IRQHandler	startup_stm32f10x_cl.c	436;"	d	file:
+ETH_WKUP_IRQHandler	startup_stm32f10x_cl.c	437;"	d	file:
+EXTI0_IRQHandler	startup_stm32f10x_cl.c	388;"	d	file:
+EXTI15_10_IRQHandler	startup_stm32f10x_cl.c	422;"	d	file:
+EXTI1_IRQHandler	startup_stm32f10x_cl.c	389;"	d	file:
+EXTI2_IRQHandler	startup_stm32f10x_cl.c	390;"	d	file:
+EXTI3_IRQHandler	startup_stm32f10x_cl.c	391;"	d	file:
+EXTI4_IRQHandler	startup_stm32f10x_cl.c	392;"	d	file:
+EXTI9_5_IRQHandler	startup_stm32f10x_cl.c	405;"	d	file:
+FALSE	symtabgen.c	7;"	d	file:
+FLASH_IRQHandler	startup_stm32f10x_cl.c	386;"	d	file:
+HARDFAULT_PSP	startup_stm32f10x_cl.c	/^void **HARDFAULT_PSP;$/;"	v
+HardFault_Handler	startup_stm32f10x_cl.c	/^void HardFault_Handler(void){$/;"	f
+I2C1_ER_IRQHandler	startup_stm32f10x_cl.c	414;"	d	file:
+I2C1_EV_IRQHandler	startup_stm32f10x_cl.c	413;"	d	file:
+I2C2_ER_IRQHandler	startup_stm32f10x_cl.c	416;"	d	file:
+I2C2_EV_IRQHandler	startup_stm32f10x_cl.c	415;"	d	file:
+MMI_Handler	startup_stm32f10x_cl.c	374;"	d	file:
+MemManage_Handler	startup_stm32f10x_cl.c	/^void MemManage_Handler(void)$/;"	f
+MemManage_Handler	startup_stm32f10x_cl.c	375;"	d	file:
+NMI_Handler	startup_stm32f10x_cl.c	/^void NMI_Handler(void) {$/;"	f
+OTG_FS_IRQHandler	startup_stm32f10x_cl.c	442;"	d	file:
+OTG_FS_WKUP_IRQHandler	startup_stm32f10x_cl.c	424;"	d	file:
+PVD_IRQHandler	startup_stm32f10x_cl.c	383;"	d	file:
+PendSV_Handler	startup_stm32f10x_cl.c	380;"	d	file:
+RCC_IRQHandler	startup_stm32f10x_cl.c	387;"	d	file:
+RTCAlarm_IRQHandler	startup_stm32f10x_cl.c	423;"	d	file:
+RTC_IRQHandler	startup_stm32f10x_cl.c	385;"	d	file:
+Reset_Handler	startup_stm32f10x_cl.c	/^void Reset_Handler(void) {$/;"	f
+SPI1_IRQHandler	startup_stm32f10x_cl.c	417;"	d	file:
+SPI2_IRQHandler	startup_stm32f10x_cl.c	418;"	d	file:
+SPI3_IRQHandler	startup_stm32f10x_cl.c	426;"	d	file:
+STM32F10X_CL	startup_stm32f10x_cl.c	1;"	d	file:
+SVC_Handler	startup_stm32f10x_cl.c	378;"	d	file:
+SYMTAB	symtab.h	25;"	d
+SysTick_Handler	startup_stm32f10x_cl.c	381;"	d	file:
+TAMPER_IRQHandler	startup_stm32f10x_cl.c	384;"	d	file:
+TIM1_BRK_IRQHandler	startup_stm32f10x_cl.c	406;"	d	file:
+TIM1_CC_IRQHandler	startup_stm32f10x_cl.c	409;"	d	file:
+TIM1_TRG_COM_IRQHandler	startup_stm32f10x_cl.c	408;"	d	file:
+TIM1_UP_IRQHandler	startup_stm32f10x_cl.c	407;"	d	file:
+TIM2_IRQHandler	startup_stm32f10x_cl.c	410;"	d	file:
+TIM3_IRQHandler	startup_stm32f10x_cl.c	411;"	d	file:
+TIM4_IRQHandler	startup_stm32f10x_cl.c	412;"	d	file:
+TIM5_IRQHandler	startup_stm32f10x_cl.c	425;"	d	file:
+TIM6_IRQHandler	startup_stm32f10x_cl.c	429;"	d	file:
+TIM7_IRQHandler	startup_stm32f10x_cl.c	430;"	d	file:
+TRUE	symtabgen.c	6;"	d	file:
+UART4_IRQHandler	startup_stm32f10x_cl.c	427;"	d	file:
+UART5_IRQHandler	startup_stm32f10x_cl.c	428;"	d	file:
+USART1_IRQHandler	startup_stm32f10x_cl.c	419;"	d	file:
+USART2_IRQHandler	startup_stm32f10x_cl.c	420;"	d	file:
+USART3_IRQHandler	startup_stm32f10x_cl.c	421;"	d	file:
+UsageFault_Handler	startup_stm32f10x_cl.c	377;"	d	file:
+WEAK	startup_stm32f10x_cl.c	10;"	d	file:
+WWDG_IRQHandler	startup_stm32f10x_cl.c	382;"	d	file:
+__Init_Data	startup_stm32f10x_cl.c	/^void __Init_Data(void) {$/;"	f
+a	main.c	/^int a=0;$/;"	v
+fun_size	symtab.h	/^		int fun_size;$/;"	m	struct:symtab
+fun_start_address	symtab.h	/^				int fun_start_address;$/;"	m	struct:symtab
+i	startup_stm32f10x_cl.c	/^int i;$/;"	v
+intfunc	startup_stm32f10x_cl.c	/^typedef void( *const intfunc )( void );$/;"	t	file:
+load_time_address	symtab.h	/^		int load_time_address;$/;"	m	struct:symtab
+lowestaddr	startup_stm32f10x_cl.c	/^unsigned *lowestaddr = &end;$/;"	v
+main	main.c	/^int main(void)$/;"	f
+main	symtabgen.c	/^void main(int argcc, char * argv[])$/;"	f
+presentbit	symtab.h	/^	int presentbit;$/;"	m	struct:symtab
+size	symtabgen.c	/^	int size;$/;"	m	struct:symtab	file:
+sub	sum.c	/^int sub()$/;"	f
+sum	sum.c	/^int sum()$/;"	f
+symbols	symtab.h	/^	__attribute__((section(".symtab"))) symtab symbols[200]= { {0x0, 0} ,$/;"	v
+symbols	symtabgen.c	/^symtab symbols[1000];$/;"	v
+symtab	symtab.h	/^	typedef struct symtab$/;"	s
+symtab	symtab.h	/^}symtab;$/;"	t	typeref:struct:symtab
+symtab	symtabgen.c	/^typedef struct symtab$/;"	s	file:
+symtab	symtabgen.c	/^}symtab;$/;"	t	typeref:struct:symtab	file:
+usage_fault_handler	main.c	/^void usage_fault_handler(){$/;"	f
+value	symtabgen.c	/^	int value;$/;"	m	struct:symtab	file:
+vector_table	startup_stm32f10x_cl.c	/^		void (* const vector_table[])(void) =$/;"	v

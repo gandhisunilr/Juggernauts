@@ -1,0 +1,118 @@
+undisplay dnums...
+delete display dnums...
+Remove item numbers dnums from the list of expressions to display.
+undisplay does not repeat if you press RET after using it. (Otherwise you would just get the error `No display number ...'.)
+
+
+disable display dnums...
+Disable the display of item numbers dnums. A disabled display item is not printed automatically, but is not forgotten. It may be enabled again later.
+
+enable display dnums...
+Enable display of item numbers dnums. It becomes effective once again in auto display of its expression, until you specify otherwise.
+
+
+info display
+Print the list of expressions previously set up to display automatically, each one with its item number, but without showing the values. This includes disabled expressions, which are marked as such. It also includes expressions which would not be displayed right now because they refer to automatic variables not currently available.
+
+
+20.2 TUI Key Bindings
+
+The TUI installs several key bindings in the readline keymaps (see section 25. Command Line Editing). They allow to leave or enter in the TUI mode or they operate directly on the TUI layout and windows. The following key bindings are installed for both TUI mode and the GDB standard mode.
+
+C-x C-a
+C-x a
+C-x A
+Enter or leave the TUI mode. When the TUI mode is left, the curses window management is left and GDB operates using its standard mode writing on the terminal directly. When the TUI mode is entered, the control is given back to the curses windows. The screen is then refreshed.
+
+C-x 1
+Use a TUI layout with only one window. The layout will either be `source' or `assembly'. When the TUI mode is not active, it will switch to the TUI mode.
+Think of this key binding as the Emacs C-x 1 binding.
+
+
+C-x 2
+Use a TUI layout with at least two windows. When the current layout shows already two windows, a next layout with two windows is used. When a new layout is chosen, one window will always be common to the previous layout and the new one.
+Think of it as the Emacs C-x 2 binding.
+
+The following key bindings are handled only by the TUI mode:
+
+PgUp
+Scroll the active window one page up.
+
+PgDn
+Scroll the active window one page down.
+
+Up
+Scroll the active window one line up.
+
+Down
+Scroll the active window one line down.
+
+Left
+Scroll the active window one column left.
+
+Right
+Scroll the active window one column right.
+
+C-L
+Refresh the screen.
+In the TUI mode, the arrow keys are used by the active window for scrolling. This means they are not available for readline. It is necessary to use other readline key bindings such as C-p, C-n, C-b and C-f.
+
+
+[ < ]	[ > ]	  	[ << ]	[ Up ]	[ >> ]	  	  	  	  	[Top]	[Contents]	[Index]	[ ? ]
+20.3 TUI specific commands
+
+The TUI has specific commands to control the text windows. These commands are always available, that is they do not depend on the current terminal mode in which GDB runs. When GDB is in the standard mode, using these commands will automatically switch in the TUI mode.
+
+layout next
+Display the next layout.
+layout prev
+Display the previous layout.
+layout src
+Display the source window only.
+layout asm
+Display the assembly window only.
+layout split
+Display the source and assembly window.
+layout regs
+Display the register window together with the source or assembly window.
+focus next | prev | src | asm | regs | split
+Set the focus to the named window. This command allows to change the active window so that scrolling keys can be affected to another window.
+refresh
+Refresh the screen. This is similar to using C-L key.
+update
+Update the source window and the current execution point.
+winheight name +count
+winheight name -count
+Change the height of the window name by count lines. Positive counts increase the height, while negative counts decrease it.
+
+[ < ]	[ > ]	  	[ << ]	[ Up ]	[ >> ]	  	  	  	  	[Top]	[Contents]	[Index]	[ ? ]
+20.4 TUI configuration variables
+
+The TUI has several configuration variables that control the appearance of windows on the terminal.
+
+set tui border-kind kind
+Select the border appearance for the source, assembly and register windows. The possible values are the following:
+space
+Use a space character to draw the border.
+ascii
+Use ascii characters + - and | to draw the border.
+acs
+Use the Alternate Character Set to draw the border. The border is drawn using character line graphics if the terminal supports them.
+set tui active-border-mode mode
+Select the attributes to display the border of the active window. The possible values are normal, standout, reverse, half, half-standout, bold and bold-standout.
+set tui border-mode mode
+Select the attributes to display the border of other windows. The mode can be one of the following:
+normal
+Use normal attributes to display the border.
+standout
+Use standout mode.
+reverse
+Use reverse video mode.
+half
+Use half bright mode.
+half-standout
+Use half bright and standout mode.
+bold
+Use extra bright or bold mode.
+bold-standout
+Use extra bright or bold and standout mode.

@@ -21,7 +21,7 @@ OBJS		= core_cm3.o     otgd_fs_dev.o           stm32_eval.o     stm32f10x_crc.o 
 		  stm32f10x_tim.o     usb_desc.o  usb_mem.o     otgd_fs_pcd.o           stm32f10x_bkp.o  stm32f10x_dbgmcu.o  stm32f10x_gpio.o  \
 		  stm32f10x_rcc.o   stm32f10x_usart.o   usb_endp.o  usb_prop.o misc.o         printf.o                stm32f10x_can.o  stm32f10x_dma.o    \
 		  stm32f10x_i2c.o    stm32f10x_rtc.o   stm32f10x_wwdg.o    usb_init.o  usb_pwr.o otgd_fs_cal.o  startup_stm32f10x_cl.o  stm32f10x_cec.o \
-		  stm32f10x_exti.o    stm32f10x_it.o     stm32f10x_sdio.o  system_stm32f10x.o  usb_int.o   usb_regs.o main.o
+		  stm32f10x_exti.o    stm32f10x_it.o     stm32f10x_sdio.o  system_stm32f10x.o  usb_int.o   usb_regs.o main.o functions.o
 
 
 

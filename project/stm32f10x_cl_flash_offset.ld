@@ -40,7 +40,8 @@ SECTIONS
         *(.rodata)                 /* read-only data (constants) */
         *(.glue_7)
         *(.glue_7t)
-
+	/*(.text*) */
+	/*(.sum); */
 	 . = ALIGN(4);
    	 _etext = .;
     } >FLASH

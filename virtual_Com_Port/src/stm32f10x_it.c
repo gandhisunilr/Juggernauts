@@ -36,7 +36,8 @@
 
 /* end address for the .data section. defined in linker script */
 extern unsigned long _edata;
-
+extern unsigned long  _etext;
+extern unsigned end;
 /******************************************************************************/
 /*            Cortex-M3 Processor Exceptions Handlers                         */
 /******************************************************************************/
@@ -74,6 +75,7 @@ void HardFault_Handler(void)
 * Output         : None
 * Return         : None
 *******************************************************************************/
+unsigned *lowestaddr = &end;
 
 void MemManage_Handler(void)
 {

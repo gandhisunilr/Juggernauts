@@ -77,7 +77,7 @@ void Default_Handler(void);
 
 /* External function prototypes ----------------------------------------------*/
 extern int main(void);                /* Application's main function */
-extern void virtual_com_port_init();
+//extern void virtual_com_port_init();
 extern void __libc_init_array(void);  /* calls CTORS of static objects */
 
 
@@ -343,6 +343,63 @@ void __Init_Data(void) {
 
 	//EEEPROM_START = _seemul2;
 }
+
+
+
+/*******************************************************************************
+
+* Function Name  : virtual_com_port_init
+* Description    : Initialize virtual com port
+* Input          : None                  
+* Output         : None
+* Return         : None
+*******************************************************************************/
+#define SET_LINE_CODING             0x20
+void virtual_com_port_init()
+{
+  char data_buffer1[80]="*****************************************\r\n\r\n";
+  Set_System();
+  Set_USBClock();
+  USB_Interrupts_Config();
+  USB_Init();
+
+
+Virtual_Com_Port_Data_Setup(SET_LINE_CODING);
+
+/*
+Initialize the USART to default values
+*/
+  //USART_Config_Default();
+
+	Virtual_Com_Port_init();
+
+/*
+Configure the USART with the parameters received by the SET_LINE_CODING
+request
+*/
+	Virtual_Com_Port_Status_In();
+
+  	USART_Config();
+/*
+
+Send the data received by the USART to the PC through USB
+*/
+
+	//USART_To_USB_Send_Data();
+
+	//printf("This is my : %s", data_buffer);
+	printf("This is my : %s", data_buffer1);
+
+
+/*
+Send the data received by the USB through USART
+*/
+
+
+	
+}
+
+
 
 /*******************************************************************************
  *
