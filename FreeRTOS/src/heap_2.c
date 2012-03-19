@@ -274,5 +274,7 @@ size_t xPortGetFreeHeapSize( void )
 
 void vPortInitialiseBlocks( void )
 {
+
 	/* This just exists to keep the linker quiet. */
+
 }
