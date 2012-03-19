@@ -1,0 +1,36 @@
+
+stm32f10x_conf.h
+/* Uncomment the line below to expanse the "assert_param" macro in the 
+   Standard Peripheral Library drivers code */
+ #define USE_FULL_ASSERT    1 
+
+
+
+
+ stm3210e_eval.c
+/*!< Enable the SDIO AHB Clock */
+  //RCC_AHBPeriphClockCmd(RCC_AHBPeriph_SDIO, ENABLE);
+
+
+ usb_endp.c
+#ifdef USE_STM3210C_EVAL
+      USB_SIL_Write(EP1_IN, &USART_Rx_Buffer[USB_Tx_ptr], USB_Tx_length);  
+#else
+      //UserToPMABufferCopy(&USART_Rx_Buffer[USB_Tx_ptr], ENDP1_TXADDR, USB_Tx_length);
+      SetEPTxCount(ENDP1, USB_Tx_length);
+      SetEPTxValid(ENDP1); 
+#endif 
+
+
+The Virtual COM port demo uses USART1 present in the STM3210B-EVAL and
+STM3210E-EVAL evaluation boards
+
+
+#define PERIPH_BASE           ((uint32_t)0x40000000) /*!< Peripheral base address in the alias region */
+#define APB2PERIPH_BASE       (PERIPH_BASE + 0x10000)
+#define USART1_BASE           (APB2PERIPH_BASE + 0x3800)
+#define USART1              ((USART_TypeDef *) USART1_BASE)
+#define EVAL_COM1                        USART1
+
+
+

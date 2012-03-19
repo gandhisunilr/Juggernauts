@@ -75,7 +75,8 @@ SECTIONS
         . = ALIGN(4);
 	_ebss = . ;
     } >RAM
-    
+
+    end_of_ram = 0x20000cd0;
     PROVIDE ( end = _ebss );
     PROVIDE ( _end = _ebss );
   

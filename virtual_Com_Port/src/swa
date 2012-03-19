@@ -1,0 +1,425 @@
+ARM GAS  startup_stm32f10x_cl.s 			page 1
+
+
+   1              	;******************** (C) COPYRIGHT 2011 STMicroelectronics ********************
+   2              	;* File Name          : startup_stm32f10x_cl.s
+   3              	;* Author             : MCD Application Team
+   4              	;* Version            : V3.5.0
+   5              	;* Date               : 11-March-2011
+   6              	;* Description        : STM32F10x Connectivity line devices vector table for MDK-ARM 
+   7              	;*                      toolchain. 
+   8              	;*                      This module performs:
+   9              	;*                      - Set the initial SP
+  10              	;*                      - Set the initial PC == Reset_Handler
+  11              	;*                      - Set the vector table entries with the exceptions ISR address
+  12              	;*                      - Configure the clock system
+  13              	;*                      - Branches to __main in the C library (which eventually
+  14              	;*                        calls main()).
+  15              	;*                      After Reset the CortexM3 processor is in Thread mode,
+  16              	;*                      priority is Privileged, and the Stack is set to Main.
+  17              	;* <<< Use Configuration Wizard in Context Menu >>>   
+  18              	;*******************************************************************************
+  19              	; THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+  20              	; WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE TIME.
+  21              	; AS A RESULT, STMICROELECTRONICS SHALL NOT BE HELD LIABLE FOR ANY DIRECT,
+  22              	; INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING FROM THE
+  23              	; CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE CODING
+  24              	; INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
+  25              	;*******************************************************************************
+  26              	
+  27              	; Amount of memory (in bytes) allocated for Stack
+  28              	; Tailor this value to your application needs
+  29              	; <h> Stack Configuration
+  30              	;   <o> Stack Size (in Bytes) <0x0-0xFFFFFFFF:8>
+  31              	; </h>
+  32              	
+  33              	Stack_Size      EQU     0x00000400
+  34              	
+  35              	                AREA    STACK, NOINIT, READWRITE, ALIGN=3
+  36              	Stack_Mem       SPACE   Stack_Size
+  37              	__initial_sp
+  38              	
+  39              	
+  40              	; <h> Heap Configuration
+  41              	;   <o>  Heap Size (in Bytes) <0x0-0xFFFFFFFF:8>
+  42              	; </h>
+  43              	
+  44              	Heap_Size       EQU     0x00000200
+  45              	
+  46              	                AREA    HEAP, NOINIT, READWRITE, ALIGN=3
+  47              	__heap_base
+  48              	Heap_Mem        SPACE   Heap_Size
+  49              	__heap_limit
+  50              	
+  51              	                PRESERVE8
+  52              	                THUMB
+  53              	
+  54              	
+  55              	; Vector Table Mapped to Address 0 at Reset
+  56              	                AREA    RESET, DATA, READONLY
+  57              	                EXPORT  __Vectors
+ARM GAS  startup_stm32f10x_cl.s 			page 2
+
+
+  58              	                EXPORT  __Vectors_End
+  59              	                EXPORT  __Vectors_Size
+  60              	
+  61              	__Vectors       DCD     __initial_sp               ; Top of Stack
+  62              	                DCD     Reset_Handler              ; Reset Handler
+  63              	                DCD     NMI_Handler                ; NMI Handler
+  64              	                DCD     HardFault_Handler          ; Hard Fault Handler
+  65              	                DCD     MemManage_Handler          ; MPU Fault Handler
+  66              	                DCD     BusFault_Handler           ; Bus Fault Handler
+  67              	                DCD     UsageFault_Handler         ; Usage Fault Handler
+  68              	                DCD     0                          ; Reserved
+  69              	                DCD     0                          ; Reserved
+  70              	                DCD     0                          ; Reserved
+  71              	                DCD     0                          ; Reserved
+  72              	                DCD     SVC_Handler                ; SVCall Handler
+  73              	                DCD     DebugMon_Handler           ; Debug Monitor Handler
+  74              	                DCD     0                          ; Reserved
+  75              	                DCD     PendSV_Handler             ; PendSV Handler
+  76              	                DCD     SysTick_Handler            ; SysTick Handler
+  77              	
+  78              	                ; External Interrupts
+  79              	                DCD     WWDG_IRQHandler            ; Window Watchdog
+  80              	                DCD     PVD_IRQHandler             ; PVD through EXTI Line detect
+  81              	                DCD     TAMPER_IRQHandler          ; Tamper
+  82              	                DCD     RTC_IRQHandler             ; RTC
+  83              	                DCD     FLASH_IRQHandler           ; Flash
+  84              	                DCD     RCC_IRQHandler             ; RCC
+  85              	                DCD     EXTI0_IRQHandler           ; EXTI Line 0
+  86              	                DCD     EXTI1_IRQHandler           ; EXTI Line 1
+  87              	                DCD     EXTI2_IRQHandler           ; EXTI Line 2
+  88              	                DCD     EXTI3_IRQHandler           ; EXTI Line 3
+  89              	                DCD     EXTI4_IRQHandler           ; EXTI Line 4
+  90              	                DCD     DMA1_Channel1_IRQHandler   ; DMA1 Channel 1
+  91              	                DCD     DMA1_Channel2_IRQHandler   ; DMA1 Channel 2
+  92              	                DCD     DMA1_Channel3_IRQHandler   ; DMA1 Channel 3
+  93              	                DCD     DMA1_Channel4_IRQHandler   ; DMA1 Channel 4
+  94              	                DCD     DMA1_Channel5_IRQHandler   ; DMA1 Channel 5
+  95              	                DCD     DMA1_Channel6_IRQHandler   ; DMA1 Channel 6
+  96              	                DCD     DMA1_Channel7_IRQHandler   ; DMA1 Channel 7
+  97              	                DCD     ADC1_2_IRQHandler          ; ADC1 and ADC2
+  98              	                DCD     CAN1_TX_IRQHandler         ; CAN1 TX
+  99              	                DCD     CAN1_RX0_IRQHandler        ; CAN1 RX0
+ 100              	                DCD     CAN1_RX1_IRQHandler        ; CAN1 RX1
+ 101              	                DCD     CAN1_SCE_IRQHandler        ; CAN1 SCE
+ 102              	                DCD     EXTI9_5_IRQHandler         ; EXTI Line 9..5
+ 103              	                DCD     TIM1_BRK_IRQHandler        ; TIM1 Break
+ 104              	                DCD     TIM1_UP_IRQHandler         ; TIM1 Update
+ 105              	                DCD     TIM1_TRG_COM_IRQHandler    ; TIM1 Trigger and Commutation
+ 106              	                DCD     TIM1_CC_IRQHandler         ; TIM1 Capture Compare
+ 107              	                DCD     TIM2_IRQHandler            ; TIM2
+ 108              	                DCD     TIM3_IRQHandler            ; TIM3
+ 109              	                DCD     TIM4_IRQHandler            ; TIM4
+ 110              	                DCD     I2C1_EV_IRQHandler         ; I2C1 Event
+ 111              	                DCD     I2C1_ER_IRQHandler         ; I2C1 Error
+ 112              	                DCD     I2C2_EV_IRQHandler         ; I2C2 Event
+ 113              	                DCD     I2C2_ER_IRQHandler         ; I2C1 Error
+ 114              	                DCD     SPI1_IRQHandler            ; SPI1
+ARM GAS  startup_stm32f10x_cl.s 			page 3
+
+
+ 115              	                DCD     SPI2_IRQHandler            ; SPI2
+ 116              	                DCD     USART1_IRQHandler          ; USART1
+ 117              	                DCD     USART2_IRQHandler          ; USART2
+ 118              	                DCD     USART3_IRQHandler          ; USART3
+ 119              	                DCD     EXTI15_10_IRQHandler       ; EXTI Line 15..10
+ 120              	                DCD     RTCAlarm_IRQHandler        ; RTC alarm through EXTI line
+ 121              	                DCD     OTG_FS_WKUP_IRQHandler     ; USB OTG FS Wakeup through EXTI line
+ 122              	                DCD     0                          ; Reserved
+ 123              	                DCD     0                          ; Reserved
+ 124              	                DCD     0                          ; Reserved
+ 125              	                DCD     0                          ; Reserved
+ 126              	                DCD     0                          ; Reserved
+ 127              	                DCD     0                          ; Reserved
+ 128              	                DCD     0                          ; Reserved
+ 129              	                DCD     TIM5_IRQHandler            ; TIM5
+ 130              	                DCD     SPI3_IRQHandler            ; SPI3
+ 131              	                DCD     UART4_IRQHandler           ; UART4
+ 132              	                DCD     UART5_IRQHandler           ; UART5
+ 133              	                DCD     TIM6_IRQHandler            ; TIM6
+ 134              	                DCD     TIM7_IRQHandler            ; TIM7
+ 135              	                DCD     DMA2_Channel1_IRQHandler   ; DMA2 Channel1
+ 136              	                DCD     DMA2_Channel2_IRQHandler   ; DMA2 Channel2
+ 137              	                DCD     DMA2_Channel3_IRQHandler   ; DMA2 Channel3
+ 138              	                DCD     DMA2_Channel4_IRQHandler   ; DMA2 Channel4
+ 139              	                DCD     DMA2_Channel5_IRQHandler   ; DMA2 Channel5
+ 140              	                DCD     ETH_IRQHandler             ; Ethernet
+ 141              	                DCD     ETH_WKUP_IRQHandler        ; Ethernet Wakeup through EXTI line
+ 142              	                DCD     CAN2_TX_IRQHandler         ; CAN2 TX
+ 143              	                DCD     CAN2_RX0_IRQHandler        ; CAN2 RX0
+ 144              	                DCD     CAN2_RX1_IRQHandler        ; CAN2 RX1
+ 145              	                DCD     CAN2_SCE_IRQHandler        ; CAN2 SCE
+ 146              	                DCD     OTG_FS_IRQHandler          ; USB OTG FS
+ 147              	__Vectors_End
+ 148              	
+ 149              	__Vectors_Size  EQU  __Vectors_End - __Vectors
+ 150              	
+ 151              	                AREA    |.text|, CODE, READONLY
+ 152              	
+ 153              	; Reset handler
+ 154              	Reset_Handler    PROC
+ 155              	                 EXPORT  Reset_Handler             [WEAK]
+ 156              	        IMPORT  SystemInit
+ 157              	        IMPORT  __main
+ 158 ???? 0048     	                 LDR     R0, =SystemInit
+ 159 ???? 8047     	                 BLX     R0
+ 160 ???? 0048     	                 LDR     R0, =__main
+ 161 ???? 0047     	                 BX      R0
+ 162              	                 ENDP
+ 163              	
+ 164              	; Dummy Exception Handlers (infinite loops which can be modified)
+ 165              	
+ 166              	NMI_Handler     PROC
+ 167              	                EXPORT  NMI_Handler                [WEAK]
+ 168 ???? 00E0     	                B       .
+ 169              	                ENDP
+ 170              	HardFault_Handler\
+ 171              	                PROC
+ARM GAS  startup_stm32f10x_cl.s 			page 4
+
+
+ 172              	                EXPORT  HardFault_Handler          [WEAK]
+ 173 ???? 00E0     	                B       .
+ 174              	                ENDP
+ 175              	MemManage_Handler\
+ 176              	                PROC
+ 177              	                EXPORT  MemManage_Handler          [WEAK]
+ 178 ???? 00E0     	                B       .
+ 179              	                ENDP
+ 180              	BusFault_Handler\
+ 181              	                PROC
+ 182              	                EXPORT  BusFault_Handler           [WEAK]
+ 183 ???? 00E0     	                B       .
+ 184              	                ENDP
+ 185              	UsageFault_Handler\
+ 186              	                PROC
+ 187              	                EXPORT  UsageFault_Handler         [WEAK]
+ 188 ???? 00E0     	                B       .
+ 189              	                ENDP
+ 190              	SVC_Handler     PROC
+ 191              	                EXPORT  SVC_Handler                [WEAK]
+ 192 ???? 00E0     	                B       .
+ 193              	                ENDP
+ 194              	DebugMon_Handler\
+ 195              	                PROC
+ 196              	                EXPORT  DebugMon_Handler           [WEAK]
+ 197 ???? 00E0     	                B       .
+ 198              	                ENDP
+ 199              	PendSV_Handler  PROC
+ 200              	                EXPORT  PendSV_Handler             [WEAK]
+ 201 ???? 00E0     	                B       .
+ 202              	                ENDP
+ 203              	SysTick_Handler PROC
+ 204              	                EXPORT  SysTick_Handler            [WEAK]
+ 205 ???? 00E0     	                B       .
+ 206              	                ENDP
+ 207              	
+ 208              	Default_Handler PROC
+ 209              	
+ 210              	                EXPORT  WWDG_IRQHandler            [WEAK]
+ 211              	                EXPORT  PVD_IRQHandler             [WEAK]
+ 212              	                EXPORT  TAMPER_IRQHandler          [WEAK]
+ 213              	                EXPORT  RTC_IRQHandler             [WEAK]
+ 214              	                EXPORT  FLASH_IRQHandler           [WEAK]
+ 215              	                EXPORT  RCC_IRQHandler             [WEAK]
+ 216              	                EXPORT  EXTI0_IRQHandler           [WEAK]
+ 217              	                EXPORT  EXTI1_IRQHandler           [WEAK]
+ 218              	                EXPORT  EXTI2_IRQHandler           [WEAK]
+ 219              	                EXPORT  EXTI3_IRQHandler           [WEAK]
+ 220              	                EXPORT  EXTI4_IRQHandler           [WEAK]
+ 221              	                EXPORT  DMA1_Channel1_IRQHandler   [WEAK]
+ 222              	                EXPORT  DMA1_Channel2_IRQHandler   [WEAK]
+ 223              	                EXPORT  DMA1_Channel3_IRQHandler   [WEAK]
+ 224              	                EXPORT  DMA1_Channel4_IRQHandler   [WEAK]
+ 225              	                EXPORT  DMA1_Channel5_IRQHandler   [WEAK]
+ 226              	                EXPORT  DMA1_Channel6_IRQHandler   [WEAK]
+ 227              	                EXPORT  DMA1_Channel7_IRQHandler   [WEAK]
+ 228              	                EXPORT  ADC1_2_IRQHandler          [WEAK]
+ARM GAS  startup_stm32f10x_cl.s 			page 5
+
+
+ 229              	                EXPORT  CAN1_TX_IRQHandler         [WEAK]
+ 230              	                EXPORT  CAN1_RX0_IRQHandler        [WEAK]
+ 231              	                EXPORT  CAN1_RX1_IRQHandler        [WEAK]
+ 232              	                EXPORT  CAN1_SCE_IRQHandler        [WEAK]
+ 233              	                EXPORT  EXTI9_5_IRQHandler         [WEAK]
+ 234              	                EXPORT  TIM1_BRK_IRQHandler        [WEAK]
+ 235              	                EXPORT  TIM1_UP_IRQHandler         [WEAK]
+ 236              	                EXPORT  TIM1_TRG_COM_IRQHandler    [WEAK]
+ 237              	                EXPORT  TIM1_CC_IRQHandler         [WEAK]
+ 238              	                EXPORT  TIM2_IRQHandler            [WEAK]
+ 239              	                EXPORT  TIM3_IRQHandler            [WEAK]
+ 240              	                EXPORT  TIM4_IRQHandler            [WEAK]
+ 241              	                EXPORT  I2C1_EV_IRQHandler         [WEAK]
+ 242              	                EXPORT  I2C1_ER_IRQHandler         [WEAK]
+ 243              	                EXPORT  I2C2_EV_IRQHandler         [WEAK]
+ 244              	                EXPORT  I2C2_ER_IRQHandler         [WEAK]
+ 245              	                EXPORT  SPI1_IRQHandler            [WEAK]
+ 246              	                EXPORT  SPI2_IRQHandler            [WEAK]
+ 247              	                EXPORT  USART1_IRQHandler          [WEAK]
+ 248              	                EXPORT  USART2_IRQHandler          [WEAK]
+ 249              	                EXPORT  USART3_IRQHandler          [WEAK]
+ 250              	                EXPORT  EXTI15_10_IRQHandler       [WEAK]
+ 251              	                EXPORT  RTCAlarm_IRQHandler        [WEAK]
+ 252              	                EXPORT  OTG_FS_WKUP_IRQHandler     [WEAK]
+ 253              	                EXPORT  TIM5_IRQHandler            [WEAK]
+ 254              	                EXPORT  SPI3_IRQHandler            [WEAK]
+ 255              	                EXPORT  UART4_IRQHandler           [WEAK]
+ 256              	                EXPORT  UART5_IRQHandler           [WEAK]
+ 257              	                EXPORT  TIM6_IRQHandler            [WEAK]
+ 258              	                EXPORT  TIM7_IRQHandler            [WEAK]
+ 259              	                EXPORT  DMA2_Channel1_IRQHandler   [WEAK]
+ 260              	                EXPORT  DMA2_Channel2_IRQHandler   [WEAK]
+ 261              	                EXPORT  DMA2_Channel3_IRQHandler   [WEAK]
+ 262              	                EXPORT  DMA2_Channel4_IRQHandler   [WEAK]
+ 263              	                EXPORT  DMA2_Channel5_IRQHandler   [WEAK]
+ 264              	                EXPORT  ETH_IRQHandler             [WEAK]
+ 265              	                EXPORT  ETH_WKUP_IRQHandler        [WEAK]
+ 266              	                EXPORT  CAN2_TX_IRQHandler         [WEAK]
+ 267              	                EXPORT  CAN2_RX0_IRQHandler        [WEAK]
+ 268              	                EXPORT  CAN2_RX1_IRQHandler        [WEAK]
+ 269              	                EXPORT  CAN2_SCE_IRQHandler        [WEAK]
+ 270              	                EXPORT  OTG_FS_IRQHandler          [WEAK]
+ 271              	
+ 272              	WWDG_IRQHandler
+ 273              	PVD_IRQHandler
+ 274              	TAMPER_IRQHandler
+ 275              	RTC_IRQHandler
+ 276              	FLASH_IRQHandler
+ 277              	RCC_IRQHandler
+ 278              	EXTI0_IRQHandler
+ 279              	EXTI1_IRQHandler
+ 280              	EXTI2_IRQHandler
+ 281              	EXTI3_IRQHandler
+ 282              	EXTI4_IRQHandler
+ 283              	DMA1_Channel1_IRQHandler
+ 284              	DMA1_Channel2_IRQHandler
+ 285              	DMA1_Channel3_IRQHandler
+ARM GAS  startup_stm32f10x_cl.s 			page 6
+
+
+ 286              	DMA1_Channel4_IRQHandler
+ 287              	DMA1_Channel5_IRQHandler
+ 288              	DMA1_Channel6_IRQHandler
+ 289              	DMA1_Channel7_IRQHandler
+ 290              	ADC1_2_IRQHandler
+ 291              	CAN1_TX_IRQHandler
+ 292              	CAN1_RX0_IRQHandler
+ 293              	CAN1_RX1_IRQHandler
+ 294              	CAN1_SCE_IRQHandler
+ 295              	EXTI9_5_IRQHandler
+ 296              	TIM1_BRK_IRQHandler
+ 297              	TIM1_UP_IRQHandler
+ 298              	TIM1_TRG_COM_IRQHandler
+ 299              	TIM1_CC_IRQHandler
+ 300              	TIM2_IRQHandler
+ 301              	TIM3_IRQHandler
+ 302              	TIM4_IRQHandler
+ 303              	I2C1_EV_IRQHandler
+ 304              	I2C1_ER_IRQHandler
+ 305              	I2C2_EV_IRQHandler
+ 306              	I2C2_ER_IRQHandler
+ 307              	SPI1_IRQHandler
+ 308              	SPI2_IRQHandler
+ 309              	USART1_IRQHandler
+ 310              	USART2_IRQHandler
+ 311              	USART3_IRQHandler
+ 312              	EXTI15_10_IRQHandler
+ 313              	RTCAlarm_IRQHandler
+ 314              	OTG_FS_WKUP_IRQHandler
+ 315              	TIM5_IRQHandler
+ 316              	SPI3_IRQHandler
+ 317              	UART4_IRQHandler
+ 318              	UART5_IRQHandler
+ 319              	TIM6_IRQHandler
+ 320              	TIM7_IRQHandler
+ 321              	DMA2_Channel1_IRQHandler
+ 322              	DMA2_Channel2_IRQHandler
+ 323              	DMA2_Channel3_IRQHandler
+ 324              	DMA2_Channel4_IRQHandler
+ 325              	DMA2_Channel5_IRQHandler
+ 326              	ETH_IRQHandler
+ 327              	ETH_WKUP_IRQHandler
+ 328              	CAN2_TX_IRQHandler
+ 329              	CAN2_RX0_IRQHandler
+ 330              	CAN2_RX1_IRQHandler
+ 331              	CAN2_SCE_IRQHandler
+ 332              	OTG_FS_IRQHandler
+ 333              	
+ 334 ???? 00E0     	                B       .
+ 335              	
+ 336              	                ENDP
+ 337              	
+ 338              	                ALIGN
+ 339              	
+ 340              	;*******************************************************************************
+ 341              	; User Stack and Heap initialization
+ 342              	;*******************************************************************************
+ARM GAS  startup_stm32f10x_cl.s 			page 7
+
+
+ 343              	                 IF      :DEF:__MICROLIB
+ 344              	                
+ 345              	                 EXPORT  __initial_sp
+ 346              	                 EXPORT  __heap_base
+ 347              	                 EXPORT  __heap_limit
+ 348              	                
+ 349              	                 ELSE
+ 350              	                
+ 351              	                 IMPORT  __use_two_region_memory
+ 352              	                 EXPORT  __user_initial_stackheap
+ 353              	                 
+ 354              	__user_initial_stackheap
+ 355              	
+ 356 ???? 0048     	                 LDR     R0, =  Heap_Mem
+ 357              	                 LDR     R1, =(Stack_Mem + Stack_Size)
+ 358              	                 LDR     R2, = (Heap_Mem +  Heap_Size)
+ 359 ???? 004B     	                 LDR     R3, = Stack_Mem
+ 360 ???? 7047     	                 BX      LR
+ 361              	
+ 362              	                 ALIGN
+ 363              	
+ 364              	                 ENDIF
+ 365              	
+ 366              	                 END
+ 367              	
+ 368 ???? 00000000 	;******************* (C) COPYRIGHT 2011 STMicroelectronics *****END OF FILE*****
+****  Error:junk at end of line, first unrecognized character is `*'
+ 368      00000000 
+ 368      00000000 
+ 368      00000000 
+ARM GAS  startup_stm32f10x_cl.s 			page 8
+
+
+DEFINED SYMBOLS
+                            .text:00000000 $d
+startup_stm32f10x_cl.s:158    .text:00000000 $t
+startup_stm32f10x_cl.s:168    .text:00000000 L0
+startup_stm32f10x_cl.s:173    .text:00000000 L0
+startup_stm32f10x_cl.s:178    .text:00000000 L0
+startup_stm32f10x_cl.s:183    .text:00000000 L0
+startup_stm32f10x_cl.s:188    .text:00000000 L0
+startup_stm32f10x_cl.s:192    .text:00000000 L0
+startup_stm32f10x_cl.s:197    .text:00000000 L0
+startup_stm32f10x_cl.s:201    .text:00000000 L0
+startup_stm32f10x_cl.s:205    .text:00000000 L0
+startup_stm32f10x_cl.s:334    .text:00000000 L0
+startup_stm32f10x_cl.s:343    .text:00000000 IF
+startup_stm32f10x_cl.s:343    .text:00000000 DEF
+startup_stm32f10x_cl.s:368    .text:00000000 $d
+startup_stm32f10x_cl.s:368    .text:00000000 $$lit_1
+startup_stm32f10x_cl.s:368    .text:00000010 $t
+                            .data:00000000 $d
+                             .bss:00000000 $d
+                  .ARM.attributes:00000021 $d
+
+UNDEFINED SYMBOLS
+SystemInit
+__main
+Heap_Mem
+Stack_Mem
+Stack_Size
+Heap_Size

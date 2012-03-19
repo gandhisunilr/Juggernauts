@@ -41,8 +41,8 @@ void main(int argcc, char * argv[])
 	fprintf(fileout, "\n	\
 typedef struct symtab\n	 \
 {\n			\
-	int fun_start_address;\n	\
-	int fun_size;\n	\
+	uint32_t fun_start_address;\n	\
+	uint32_t fun_size;\n	\
 	int load_time_address;\n\
 	int presentbit;\n\
 }symtab;\n\
@@ -70,7 +70,7 @@ __attribute__((section(\".symtab\"))) symtab symbols[200]= { \
 			}
 		}
 		if ( (entry_exist_flag == FALSE)  && (symbols[i].size != 0) )
-			fprintf(fileout, ",\n{0x%x, %d} ", symbols[i].value, symbols[i].size);
+			fprintf(fileout, ",\n{0x%x, %d, 0, 0} ", symbols[i].value, symbols[i].size);
 
 		
 	}
