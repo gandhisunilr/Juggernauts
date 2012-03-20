@@ -1,17 +1,5 @@
-/*
-Default linker script for STM32F10x_256K_64K
-Copyright RAISONANCE S.A.S. 2008
-*/
 
-/* include the common STM32F10x sub-script */
-
-/* Common part of the linker scripts for STM32 devices*/
-
-
-/* default stack sizes. 
-
-These are used by the startup in order to allocate stacks for the different modes.
-*/
+/* default stack sizes. */
 
 __Stack_Size = 1024 ;
 
@@ -28,21 +16,13 @@ There will be a link error if there is not this amount of RAM free at the end.
 _Minimum_Stack_Size = 0x100 ;
 
 
-/* include the memory spaces definitions sub-script */
-/*
-Linker subscript for STM32F10x definitions with 256K Flash and 64K RAM */
-
 /* Memory Spaces Definitions */
 
 MEMORY
 {
-  RAM (xrw) : ORIGIN = 0x20000000, LENGTH = 64K
-  FLASH (rx) : ORIGIN = 0x08000000, LENGTH = 256K
-  FLASHB1 (rx) : ORIGIN = 0x00000000, LENGTH = 0
-  EXTMEMB0 (rx) : ORIGIN = 0x00000000, LENGTH = 0
-  EXTMEMB1 (rx) : ORIGIN = 0x00000000, LENGTH = 0
-  EXTMEMB2 (rx) : ORIGIN = 0x00000000, LENGTH = 0
-  EXTMEMB3 (rx) : ORIGIN = 0x00000000, LENGTH = 0
+  	RAM (xrw) : ORIGIN = 0x20000000, LENGTH = 64K
+	FLASH (rx) : ORIGIN = 0x08000000, LENGTH = 256K
+	xn (rwx) : ORIGIN = 0xC0000000, LENGTH = 64K
 }
 
 /* higher address of the user mode stack */
@@ -63,7 +43,6 @@ SECTIONS
         KEEP(*(.isr_vectorsflash))            /* Startup code */
 	. = ALIGN(4);
     } >FLASH
- 
   
     .flashtext :
     {
@@ -71,6 +50,7 @@ SECTIONS
         *(.flashtext)            /* Startup code */
 	. = ALIGN(4);
     } >FLASH
+  
  
     
     /* the program code is stored in the .text section, which goes to Flash */
@@ -147,55 +127,6 @@ SECTIONS
     } >RAM
     
 
-   
-    /* this is the FLASH Bank1 */
-    /* the C or assembly source must explicitly place the code or data there
-    using the "section" attribute */
-    .b1text :
-    {
-        *(.b1text)                   /* remaining code */
-        *(.b1rodata)                 /* read-only data (constants) */
-        *(.b1rodata*)
-    } >FLASHB1
-    
-    /* this is the EXTMEM */
-    /* the C or assembly source must explicitly place the code or data there
-    using the "section" attribute */
-    
-    /* EXTMEM Bank0 */
-    .eb0text :
-    {
-        *(.eb0text)                   /* remaining code */
-        *(.eb0rodata)                 /* read-only data (constants) */
-        *(.eb0rodata*)
-    } >EXTMEMB0
-    
-    /* EXTMEM Bank1 */
-    .eb1text :
-    {
-        *(.eb1text)                   /* remaining code */
-        *(.eb1rodata)                 /* read-only data (constants) */
-        *(.eb1rodata*)
-    } >EXTMEMB1
-    
-    /* EXTMEM Bank2 */
-    .eb2text :
-    {
-        *(.eb2text)                   /* remaining code */
-        *(.eb2rodata)                 /* read-only data (constants) */
-        *(.eb2rodata*)
-    } >EXTMEMB2
-    
-    /* EXTMEM Bank0 */
-    .eb3text :
-    {
-        *(.eb3text)                   /* remaining code */
-        *(.eb3rodata)                 /* read-only data (constants) */
-        *(.eb3rodata*)
-    } >EXTMEMB3
-    
-    
-    
     /* after that it's only debugging information. */
     
     /* remove the debugging information from the standard libraries */
@@ -206,37 +137,4 @@ SECTIONS
      libgcc.a ( * )
      }
 	
-    /* Stabs debugging sections.  */
-    .stab          0 : { *(.stab) }
-    .stabstr       0 : { *(.stabstr) }
-    .stab.excl     0 : { *(.stab.excl) }
-    .stab.exclstr  0 : { *(.stab.exclstr) }
-    .stab.index    0 : { *(.stab.index) }
-    .stab.indexstr 0 : { *(.stab.indexstr) }
-    .comment       0 : { *(.comment) }
-    /* DWARF debug sections.
-       Symbols in the DWARF debugging sections are relative to the beginning
-       of the section so we begin them at 0.  */
-    /* DWARF 1 */
-    .debug          0 : { *(.debug) }
-    .line           0 : { *(.line) }
-    /* GNU DWARF 1 extensions */
-    .debug_srcinfo  0 : { *(.debug_srcinfo) }
-    .debug_sfnames  0 : { *(.debug_sfnames) }
-    /* DWARF 1.1 and DWARF 2 */
-    .debug_aranges  0 : { *(.debug_aranges) }
-    .debug_pubnames 0 : { *(.debug_pubnames) }
-    /* DWARF 2 */
-    .debug_info     0 : { *(.debug_info .gnu.linkonce.wi.*) }
-    .debug_abbrev   0 : { *(.debug_abbrev) }
-    .debug_line     0 : { *(.debug_line) }
-    .debug_frame    0 : { *(.debug_frame) }
-    .debug_str      0 : { *(.debug_str) }
-    .debug_loc      0 : { *(.debug_loc) }
-    .debug_macinfo  0 : { *(.debug_macinfo) }
-    /* SGI/MIPS DWARF 2 extensions */
-    .debug_weaknames 0 : { *(.debug_weaknames) }
-    .debug_funcnames 0 : { *(.debug_funcnames) }
-    .debug_typenames 0 : { *(.debug_typenames) }
-    .debug_varnames  0 : { *(.debug_varnames) }
 }

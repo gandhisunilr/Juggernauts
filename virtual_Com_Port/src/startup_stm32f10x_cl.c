@@ -1,3 +1,4 @@
+#define STM32F10X_CL
 /**
  ******************************************************************************
  * @file      startup_stm32f10x_cl.c
@@ -37,6 +38,19 @@
  */
 
 /* Includes ------------------------------------------------------------------*/
+#ifdef STM32L1XX_MD
+ #include "stm32l1xx.h"
+#else
+ #include "stm32f10x.h"
+#endif /* STM32L1XX_MD */
+ 
+#include "usb_lib.h"
+#include "usb_desc.h"
+#include "hw_config.h"
+#include "usb_pwr.h"
+#include "usb_prop.h"
+//#include "string.h"
+#include "printf.h"
 /* Private typedef -----------------------------------------------------------*/
 /* Private typedef -----------------------------------------------------------*/
 typedef void( *const intfunc )( void );
@@ -77,7 +91,8 @@ void Default_Handler(void);
 
 /* External function prototypes ----------------------------------------------*/
 extern int main(void);                /* Application's main function */
-//extern void virtual_com_port_init();
+//extern void SystemInit (void) 
+void virtual_com_port_init();
 extern void __libc_init_array(void);  /* calls CTORS of static objects */
 
 
@@ -357,7 +372,7 @@ void __Init_Data(void) {
 #define SET_LINE_CODING             0x20
 void virtual_com_port_init()
 {
-  char data_buffer1[80]="*****************************************\r\n\r\n";
+//  char data_buffer1[80]="*****************************************\r\n\r\n";
   Set_System();
   Set_USBClock();
   USB_Interrupts_Config();
@@ -388,7 +403,7 @@ Send the data received by the USART to the PC through USB
 	//USART_To_USB_Send_Data();
 
 	//printf("This is my : %s", data_buffer);
-	printf("This is my : %s", data_buffer1);
+	//printf("This is my : %s", data_buffer1);
 
 
 /*
