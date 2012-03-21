@@ -76,7 +76,7 @@ void HardFault_Handler(void)
 * Return         : None
 *******************************************************************************/
 unsigned *lowestaddr = &end;
-
+__attribute__ ((section(".handlerfunctions")))
 void MemManage_Handler(void)
 {
 	extern unsigned end, end_of_ram;
