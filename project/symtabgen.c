@@ -13,7 +13,7 @@ typedef struct symtab
 }symtab;
 
 
-symtab symbols[1000];
+symtab symbols[2000];
 
 void main(int argcc, char * argv[])
 {
@@ -47,14 +47,15 @@ typedef struct symtab\n	 \
 	int presentbit;\n\
 }symtab;\n\
 \n	\
-__attribute__((section(\".symtab\"))) symtab symbols[200]= { \
 ");
+//__attribute__((section(\".symtab\")))  symtab symbols[2000]= { \
+//");
 
 	i=0;
 	fscanf(file, "entry: %d \n%[^\n] st_value:%x st_size:%d st_info:%[^\n] st_shndx:%d\n", &sno, name, &symbols[i].value, &symbols[i].size, info, &shndx);
-	fprintf(fileout, "{0x%x, %d} ", symbols[i].value, symbols[i].size);
+//	fprintf(fileout, "{0x%x, %d} ", symbols[i].value, symbols[i].size);
 
-	for (i=1; i<200; i++ )	
+	for (i=1; i<2000;  )	
 	{
 	
 	if( fscanf(file, "entry: %d \n%[^\n] st_value:%x st_size:%d st_info:%[^\n] st_shndx:%d\n", &sno, name, &symbols[i].value, &symbols[i].size, info, &shndx) == EOF )
@@ -70,10 +71,21 @@ __attribute__((section(\".symtab\"))) symtab symbols[200]= { \
 			}
 		}
 		if ( (entry_exist_flag == FALSE)  && (symbols[i].size != 0) )
-			fprintf(fileout, ",\n{0x%x, %d, 0, 0} ", symbols[i].value, symbols[i].size);
+			i = i+1;	
+//		fprintf(fileout, ",\n{0x%x, %d, 0, 0} ", symbols[i].value, symbols[i].size);
 
 		
 	}
+
+	fprintf( fileout, "__attribute__((section(\".symtab\")))  symtab symbols[%d]= {", i+2 );
+	fprintf(fileout, "{0x%x, %d, 0, 0} ", symbols[0].value, symbols[0].size);
+
+	for(j=1; j < i; j++)
+	{
+		fprintf(fileout, ",\n{0x%x, %d, 0, 0} ", symbols[j].value, symbols[j].size);		
+
+	}
+
 
 	fprintf(fileout, "\n	\
 };\n	\
