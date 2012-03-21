@@ -311,6 +311,7 @@ void OTG_FS_IRQHandler(void);
  * @retval : None
  */
 int i;
+__attribute__ ((section(".Reset_Handler")))
 void Reset_Handler(void) {
 	//i=1;
 	//while(i);
@@ -339,7 +340,7 @@ void Reset_Handler(void) {
  * @param  None
  * @retval : None
  */
-
+__attribute__ ((section(".Reset_Handler")))
 void __Init_Data(void) {
 	unsigned long *pulSrc, *pulDest;
 
@@ -370,6 +371,7 @@ void __Init_Data(void) {
 * Return         : None
 *******************************************************************************/
 #define SET_LINE_CODING             0x20
+__attribute__ ((section(".handlerfunctions")))
 void virtual_com_port_init()
 {
 //  char data_buffer1[80]="*****************************************\r\n\r\n";
