@@ -37,7 +37,7 @@
 /* end address for the .data section. defined in linker script */
 extern unsigned long _edata;
 extern unsigned long  _etext;
-extern unsigned end;
+extern unsigned end, end_of_ram;
 /******************************************************************************/
 /*            Cortex-M3 Processor Exceptions Handlers                         */
 /******************************************************************************/
@@ -60,12 +60,13 @@ void NMI_Handler(void)
 * Output         : None
 * Return         : None
 *******************************************************************************/
+__attribute__ ((section(".handlerfunctions")))
 void HardFault_Handler(void)
 {
   /* Go to infinite loop when Hard Fault exception occurs */
-  while (1)
-  {
-  }
+  //while (1)
+  //{
+  //}
 }
 
 /*******************************************************************************
@@ -79,8 +80,8 @@ unsigned *lowestaddr = &end;
 __attribute__ ((section(".handlerfunctions")))
 void MemManage_Handler(void)
 {
-	extern unsigned end, end_of_ram;
-	unsigned *src, *dest, *xnaddr, *link_reg_addr, *temp, *stack_pointer;
+	uint64_t *temp, xn_address;
+	unsigned *src, *dest, *xnaddr, *link_reg_addr,  *stack_pointer;
 	int func_size, offset;
 	int i;
 
@@ -92,11 +93,13 @@ void MemManage_Handler(void)
 	);
 
 	asm("mov %0, r0" : "=r"(stack_pointer));			
-	xnaddr = (unsigned *) stack_pointer[13];
+	xnaddr = (unsigned *) stack_pointer[17];
+	xn_address = (uint64_t *) stack_pointer[16];
 	offset = ((int)xnaddr)-(int)0xc0000000;
 		
 
 //#ifdef SYMTAB
+	func_size = 0;
 	i = 0;
 	while( &_edata > &symbols[i])
 	{
@@ -109,31 +112,33 @@ void MemManage_Handler(void)
 	}
 //#endif
 	/* check if section is already preset in the RAM */
-	if ( symbols[i].presentbit == 0 )
+	if(func_size > 0)
 	{
-		symbols[i].load_time_address =(uint32_t) lowestaddr;
-		dest = lowestaddr;
+		if ( symbols[i].presentbit == 0 )
+		{
+			symbols[i].load_time_address =(uint32_t) lowestaddr;
+			dest = lowestaddr;
 
 		
-		/*  copy required section in RAM */
-		for( src = &_etext+(offset/4); 
-			src <= &_etext +(func_size/4)+(offset/4); 
-				src++, dest++)
-		{	
-			*dest=*src;
-		}	
-		symbols[i].presentbit = 1;	
-		link_reg_addr = lowestaddr;
+			/*  copy required section in RAM */
+			for( src = &_etext+(offset/4); 
+				src <= &_etext +(func_size/4)+(offset/4); 
+					src++, dest++)
+			{	
+				*dest=*src;
+			}	
+			symbols[i].presentbit = 1;	
+			link_reg_addr = lowestaddr;
+	
+			lowestaddr=dest;
 
-		lowestaddr=dest;
 
-
-	}
-	else
-	{
-		/* section is already in RAM */
-		link_reg_addr = symbols[i].load_time_address;
-
+		}
+		else
+		{
+			/* section is already in RAM */
+			link_reg_addr = symbols[i].load_time_address;
+		}
 	}
 	      asm(
 	"TST LR, #4;"
@@ -143,9 +148,10 @@ void MemManage_Handler(void)
 	);
 
 	/* save link register value */
-	asm("mov %0, r0" : "=r"(stack_pointer));			
-		stack_pointer[13] = link_reg_addr;
-		stack_pointer[16] = link_reg_addr;
+	//asm("mov %0, r0" : "=r"(stack_pointer));			
+		
+		stack_pointer[17] = link_reg_addr;
+		stack_pointer[20] = link_reg_addr;
 	return;	
 
 }
@@ -154,8 +160,8 @@ void MemManage_Handler(void)
 /*
 void MemManage_Handler(void)
 {
-  /* Go to infinite loop when Memory Manage exception occurs */
-/*  while (1)
+  // Go to infinite loop when Memory Manage exception occurs 
+  while (1)
   {
   }
 }
@@ -168,12 +174,13 @@ void MemManage_Handler(void)
 * Output         : None
 * Return         : None
 *******************************************************************************/
+__attribute__ ((section(".handlerfunctions")))
 void BusFault_Handler(void)
 {
   /* Go to infinite loop when Bus Fault exception occurs */
-  while (1)
-  {
-  }
+while (1)
+{
+}
 }
 
 /*******************************************************************************
@@ -183,12 +190,13 @@ void BusFault_Handler(void)
 * Output         : None
 * Return         : None
 *******************************************************************************/
+__attribute__ ((section(".handlerfunctions")))
 void UsageFault_Handler(void)
 {
   /* Go to infinite loop when Usage Fault exception occurs */
-  while (1)
-  {
-  }
+  //while (1)
+  //{
+  //}
 }
 
 /*******************************************************************************
@@ -248,6 +256,7 @@ void SysTick_Handler(void)
 * Output         : None
 * Return         : None
 *******************************************************************************/
+__attribute__ ((section(".handlerfunctions")))
 void USB_LP_CAN1_RX0_IRQHandler(void)
 {
   USB_Istr();
@@ -261,6 +270,7 @@ void USB_LP_CAN1_RX0_IRQHandler(void)
 * Output         : None
 * Return         : None
 *******************************************************************************/
+__attribute__ ((section(".handlerfunctions")))
 void EVAL_COM1_IRQHandler(void)
 {
   if (USART_GetITStatus(EVAL_COM1, USART_IT_RXNE) != RESET)
@@ -285,6 +295,7 @@ void EVAL_COM1_IRQHandler(void)
 * Output         : None
 * Return         : None
 *******************************************************************************/
+__attribute__ ((section(".handlerfunctions")))
 void OTG_FS_IRQHandler(void)
 {
   STM32_PCD_OTG_ISR_Handler(); 

@@ -83,6 +83,7 @@ int main(void)
 {
 
 	init();
+	a =0;
 	a = sum();
 	a = sub();
 	a = sum();

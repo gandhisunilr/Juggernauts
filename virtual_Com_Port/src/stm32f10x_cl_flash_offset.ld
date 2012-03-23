@@ -50,8 +50,8 @@ SECTIONS
 	    . = ALIGN(4);
 	*(.handlerfunctions)	   
 	*(.Reset_Handler*) 
-        /* *(.text) */                   /* remaining code */
-        /* *(.text.*) */                   /* remaining code */
+         *(.text)                    /* remaining code */
+         *(.text.*)                    /* remaining code */
         *(.rodata)                 /* read-only data (constants) */
         *(.rodata*)
         *(.glue_7)
@@ -64,7 +64,7 @@ SECTIONS
     } >FLASH
     
     .xntext : AT(_etext) {
-		*(.text*)		
+	/*	*(.text*) */
     } > xn
  
 
@@ -81,7 +81,7 @@ SECTIONS
         
         *(.data)
         *(.data.*)
-
+	*(.symtab)
 	    . = ALIGN(4);
 	    /* This is used by the startup in order to initialize the .data secion */
    	 _edata = . ;
